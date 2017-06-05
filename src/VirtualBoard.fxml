@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="480.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.VirtualBoardController">
+   <children>
+      <VBox fx:id="ValveEnable_S2_VBox" alignment="CENTER" layoutX="574.0" layoutY="307.0" spacing="15.0">
+         <children>
+            <Button fx:id="ValveEnable_S2_True" mnemonicParsing="false" onAction="#buttonPressed" stylesheets="@test.css" text="Enabled" />
+            <Button fx:id="ValveEnable_S2_False" disable="true" mnemonicParsing="false" onAction="#buttonPressed" stylesheets="@test.css" text="Disabled">
+               <VBox.margin>
+                  <Insets top="10.0" />
+               </VBox.margin>
+            </Button>
+            <Label fx:id="ValveEnable_S2_Label" text="Enable Valves" />
+         </children>
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+      </VBox>
+      <VBox fx:id="TurboNLK_m_S3_VBox" alignment="CENTER" layoutX="662.0" layoutY="307.0" spacing="15.0">
+         <children>
+            <Button fx:id="TurboNLK_m_S3_True" mnemonicParsing="false" onAction="#buttonPressed" stylesheets="@test.css" text="Bypass" />
+            <Button fx:id="TurboNLK_m_S3_False" disable="true" mnemonicParsing="false" onAction="#buttonPressed" stylesheets="@test.css" text="Normal">
+               <VBox.margin>
+                  <Insets top="10.0" />
+               </VBox.margin>
+            </Button>
+            <Label fx:id="TurboNLK_m_S3_Label" text="Turbo Pump Interlock" />
+         </children>
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+      </VBox>
+      <VBox fx:id="BLV_AutoClose_S7_VBox" alignment="CENTER" layoutX="21.0" layoutY="178.0" spacing="15.0">
+         <children>
+            <Button fx:id="BLV_AutoClose_S7_True" mnemonicParsing="false" onAction="#buttonPressed" stylesheets="@test.css" text="Auto" />
+            <Button fx:id="BLV_AutoClose_S7_False" disable="true" mnemonicParsing="false" onAction="#buttonPressed" stylesheets="@test.css" text="Close">
+               <VBox.margin>
+                  <Insets top="10.0" />
+               </VBox.margin>
+            </Button>
+            <Label fx:id="BLV_AutoClose_S7_Label" text="Beam Line Valve" />
+         </children>
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+      </VBox>
+      <VBox fx:id="PV_AutoClose_S7_VBox" alignment="CENTER" layoutX="197.0" layoutY="285.0" spacing="15.0">
+         <children>
+            <Button fx:id="PV_AutoClose_S7_True" mnemonicParsing="false" onAction="#buttonPressed" stylesheets="@test.css" text="Auto" />
+            <Button fx:id="PV_AutoClose_S7_False" blendMode="DIFFERENCE" disable="true" mnemonicParsing="false" onAction="#buttonPressed" stylesheets="@test.css" text="Close">
+               <VBox.margin>
+                  <Insets top="10.0" />
+               </VBox.margin>
+            </Button>
+            <Label fx:id="PV_AutoClose_S7_Label" text="Turbo Pump Valve" />
+         </children>
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+      </VBox>
+      <VBox fx:id="LockValve_AutoClose_S8_VBox" alignment="CENTER" layoutX="197.0" layoutY="43.0" spacing="15.0">
+         <children>
+            <Button fx:id="LockValve_AutoClose_S8_True" mnemonicParsing="false" onAction="#buttonPressed" stylesheets="@test.css" text="Auto" />
+            <Button fx:id="LockValve_AutoClose_S8_False" disable="true" mnemonicParsing="false" onAction="#buttonPressed" stylesheets="@test.css" text="Close">
+               <VBox.margin>
+                  <Insets top="10.0" />
+               </VBox.margin>
+            </Button>
+            <Label fx:id="LockValve_AutoClose_S8_Label" text="Lock Valve" />
+         </children>
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+      </VBox>
+      <VBox fx:id="LockRoughingValve_AutoClose_S9_VBox" alignment="CENTER" layoutX="266.0" layoutY="4.0" spacing="15.0">
+         <children>
+            <Button fx:id="LockRoughingValve_AutoClose_S9_True" mnemonicParsing="false" onAction="#buttonPressed" stylesheets="@test.css" text="Auto" />
+            <Button fx:id="LockRoughingValve_AutoClose_S9_False" disable="true" mnemonicParsing="false" onAction="#buttonPressed" stylesheets="@test.css" text="Close">
+               <VBox.margin>
+                  <Insets top="10.0" />
+               </VBox.margin>
+            </Button>
+            <Label fx:id="LockRoughingValve_AutoClose_S9_Label" text="Lock Roughing Valve" />
+         </children>
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+      </VBox>
+      <VBox fx:id="TurboRoughValve_AutoClose_S10_VBox" alignment="CENTER" layoutX="322.0" layoutY="339.0" spacing="15.0">
+         <children>
+            <Button fx:id="TurboRoughValve_AutoClose_S10_False" mnemonicParsing="false" onAction="#buttonPressed" stylesheets="@test.css" text="Auto" />
+            <Button fx:id="TurboRoughValve_AutoClose_S10_False" disable="true" mnemonicParsing="false" onAction="#buttonPressed" stylesheets="@test.css" text="Close">
+               <VBox.margin>
+                  <Insets top="10.0" />
+               </VBox.margin>
+            </Button>
+            <Label fx:id="TurboRoughValve_AutoClose_S10_Label" text="Turbo Pump Rough Valve" />
+         </children>
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+      </VBox>
+      <VBox fx:id="VentValve_AutoClose_S11_VBox" alignment="CENTER" layoutX="108.0" layoutY="4.0" spacing="15.0">
+         <children>
+            <Button fx:id="VentValve_AutoClose_S11_True" mnemonicParsing="false" onAction="#buttonPressed" stylesheets="@test.css" text="Auto" />
+            <Button fx:id="VentValve_AutoClose_S11_False" disable="true" mnemonicParsing="false" onAction="#buttonPressed" stylesheets="@test.css" text="Close">
+               <VBox.margin>
+                  <Insets top="10.0" />
+               </VBox.margin>
+            </Button>
+            <Label fx:id="VentValve_AutoClose_S11_Label" text="Vent Valve" />
+         </children>
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+      </VBox>
+      <VBox fx:id="VentLockChamber_m_S12_VBox" alignment="CENTER" layoutX="430.0" layoutY="150.0" spacing="15.0">
+         <children>
+            <Button fx:id="VentLockChamber_m_S12_True" mnemonicParsing="false" onAction="#buttonPressed" text="Vent" />
+            <Button fx:id="VentLockChamber_m_S12_False" mnemonicParsing="false" onAction="#buttonPressed" text="Standby" />
+            <Button fx:id="VentLockChamber_m_S12_Off" disable="true" mnemonicParsing="false" onAction="#buttonPressed" text="Off" />
+            <Label fx:id="VentLockChamber_m_S12_Label" text="Vent Lock and Chamber" />
+         </children>
+      </VBox>
+      <VBox fx:id="VentLock_m_S11_VBox" alignment="CENTER" layoutX="580.0" layoutY="150.0" spacing="15.0">
+         <children>
+            <Button fx:id="VentLock_m_S11_True" mnemonicParsing="false" onAction="#buttonPressed" text="Vent" />
+            <Button fx:id="VentLock_m_S11_False" mnemonicParsing="false" onAction="#buttonPressed" text="Standby" />
+            <Button fx:id="VentLock_m_S11_Off" disable="true" mnemonicParsing="false" onAction="#buttonPressed" text="Off" />
+            <Label fx:id="VentLock_m_S11_Label" text="Vent Lock" />
+         </children>
+      </VBox>
+      <VBox fx:id="PumpLockChamber_m_S14_VBox" alignment="CENTER" layoutX="652.0" layoutY="178.0" spacing="15.0">
+         <children>
+            <Button fx:id="PumpLockChamber_m_S14_True" mnemonicParsing="false" onAction="#buttonPressed" stylesheets="@test.css" text="Pump" />
+            <Button fx:id="PumpLockChamber_m_S14_False" disable="true" mnemonicParsing="false" onAction="#buttonPressed" stylesheets="@test.css" text="Standby">
+               <VBox.margin>
+                  <Insets top="10.0" />
+               </VBox.margin>
+            </Button>
+            <Label fx:id="PumpLockChamber_m_S14_Label" text="Pump Lock and Chamber" />
+         </children>
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+      </VBox>
+      <HBox alignment="CENTER" layoutX="698.0" layoutY="31.0" spacing="15.0">
+         <children>
+            <Pane fx:id="HeartBeat_LED0_LED" prefHeight="25.0" prefWidth="26.0" />
+            <Label fx:id="HeartBeat_LED0_Label" text="Heartbeat" />
+         </children>
+      </HBox>
+   </children>
+</AnchorPane>
