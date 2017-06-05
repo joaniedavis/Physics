@@ -2,11 +2,12 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ButtonBar?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Text?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="480.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.VirtualBoardController">
    <children>
@@ -55,7 +56,7 @@
       <VBox fx:id="PV_AutoClose_S7_VBox" alignment="CENTER" layoutX="197.0" layoutY="285.0" spacing="15.0">
          <children>
             <Button fx:id="PV_AutoClose_S7_True" mnemonicParsing="false" onAction="#buttonPressed" stylesheets="@test.css" text="Auto" />
-            <Button fx:id="PV_AutoClose_S7_False" blendMode="DIFFERENCE" disable="true" mnemonicParsing="false" onAction="#buttonPressed" stylesheets="@test.css" text="Close">
+            <Button fx:id="PV_AutoClose_S7_False" disable="true" mnemonicParsing="false" onAction="#buttonPressed" stylesheets="@test.css" text="Close">
                <VBox.margin>
                   <Insets top="10.0" />
                </VBox.margin>
@@ -127,7 +128,7 @@
             <Button fx:id="VentLockChamber_m_S12_True" mnemonicParsing="false" onAction="#buttonPressed" text="Vent" />
             <Button fx:id="VentLockChamber_m_S12_False" mnemonicParsing="false" onAction="#buttonPressed" text="Standby" />
             <Button fx:id="VentLockChamber_m_S12_Off" disable="true" mnemonicParsing="false" onAction="#buttonPressed" text="Off" />
-            <Label fx:id="VentLockChamber_m_S12_Label" text="Vent Lock and Chamber" />
+            <Label fx:id="VentLockChamber_m_S12_Label" text="Vent Lock and Chamber" textAlignment="CENTER" />
          </children>
       </VBox>
       <VBox fx:id="VentLock_m_S11_VBox" alignment="CENTER" layoutX="580.0" layoutY="150.0" spacing="15.0">
@@ -152,11 +153,121 @@
             <Insets />
          </opaqueInsets>
       </VBox>
-      <HBox alignment="CENTER" layoutX="698.0" layoutY="31.0" spacing="15.0">
+      <VBox fx:id="VentValve_LED16_VBox" alignment="CENTER" layoutX="51.0" layoutY="27.0">
          <children>
-            <Pane fx:id="HeartBeat_LED0_LED" prefHeight="25.0" prefWidth="26.0" />
-            <Label fx:id="HeartBeat_LED0_Label" text="Heartbeat" />
+            <Rectangle fx:id="VentValve_LED16_LED" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="17.0" stroke="BLACK" strokeType="INSIDE" width="17.0" />
+            <Text fx:id="VentValve_LED16_Label" strokeType="OUTSIDE" strokeWidth="0.0" text="Vent Valve" />
          </children>
-      </HBox>
+      </VBox>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#1f93ff00" height="76.0" layoutX="165.0" layoutY="181.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="5.0" width="176.0" />
+      <VBox fx:id="ValveEnable_LED2_VBox" alignment="CENTER" layoutX="570.0" layoutY="429.0">
+         <children>
+            <Rectangle fx:id="ValveEnable_LED2_LED" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="17.0" stroke="BLACK" strokeType="INSIDE" width="17.0" />
+            <Text fx:id="ValveEnable_LED2_Label" strokeType="OUTSIDE" strokeWidth="0.0" text="Valves Enabled" />
+         </children>
+      </VBox>
+      <VBox fx:id="Interlock_LED3_VBox" alignment="CENTER" layoutX="701.0" layoutY="429.0">
+         <children>
+            <Rectangle fx:id="Interlock_LED3_LED" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="17.0" stroke="BLACK" strokeType="INSIDE" width="17.0" />
+            <Text fx:id="Interlock_LED3_Label" strokeType="OUTSIDE" strokeWidth="0.0" text="Bypass" />
+         </children>
+      </VBox>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#1f93ff00" height="144.0" layoutX="447.0" layoutY="4.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="5.0" width="94.0" />
+      <VBox fx:id="ValveEnable_LED2_VBox1" alignment="CENTER" layoutX="470.0" layoutY="94.0">
+         <children>
+            <Rectangle fx:id="ValveEnable_LED2_LED1" arcHeight="5.0" arcWidth="5.0" fill="#ffbf1e" height="17.0" stroke="BLACK" strokeType="INSIDE" width="17.0" />
+            <Text fx:id="ValveEnable_LED2_Label1" strokeType="OUTSIDE" strokeWidth="0.0" text="LED 4???" />
+         </children>
+      </VBox>
+      <VBox fx:id="BLValve_LED5_VBox" alignment="CENTER" layoutX="93.0" layoutY="202.0">
+         <children>
+            <Rectangle fx:id="BLValve_LED5_LED" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="17.0" stroke="BLACK" strokeType="INSIDE" width="17.0" />
+            <Text fx:id="BLValve_LED5_Label" strokeType="OUTSIDE" strokeWidth="0.0" text="Beam Line Valve" />
+         </children>
+      </VBox>
+      <VBox fx:id="ChamHighVac_LED6_Vbox" alignment="CENTER" layoutX="185.0" layoutY="215.0">
+         <children>
+            <Rectangle fx:id="ChamHighVac_LED6_LED" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="17.0" stroke="BLACK" strokeType="INSIDE" width="17.0" />
+            <Text fx:id="ChamHighVac_LED6_Label" strokeType="OUTSIDE" strokeWidth="0.0" text="Chamber at High Vacuum" />
+         </children>
+      </VBox>
+      <VBox fx:id="TC2_LED7_VBox" alignment="CENTER" layoutX="180.0" layoutY="185.0">
+         <children>
+            <Rectangle fx:id="TC2_LED7_LED" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="17.0" stroke="BLACK" strokeType="INSIDE" width="17.0" />
+            <Text fx:id="TC2_LED7_Label" strokeType="OUTSIDE" strokeWidth="0.0" text="Chamber at Rough Vacuum" />
+         </children>
+      </VBox>
+      <VBox fx:id="PumpValve_LED8_VBox" alignment="CENTER" layoutX="275.0" layoutY="307.0">
+         <children>
+            <Rectangle fx:id="PumpValve_LED8_LED" arcHeight="5.0" arcWidth="5.0" fill="#ffbf1e" height="17.0" stroke="BLACK" strokeType="INSIDE" width="17.0" />
+            <Text fx:id="PumpValve_LED8_Label" strokeType="OUTSIDE" strokeWidth="0.0" text="Pump Valve?" />
+         </children>
+      </VBox>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#1f93ff00" height="144.0" layoutX="80.0" layoutY="324.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="5.0" width="94.0" />
+      <VBox fx:id="TurboON_LED9_VBox" alignment="CENTER" layoutX="86.0" layoutY="344.0">
+         <children>
+            <Rectangle fx:id="TurboON_LED9_LED" arcHeight="5.0" arcWidth="5.0" fill="#1f8dff" height="17.0" stroke="BLACK" strokeType="INSIDE" width="17.0" />
+            <Text fx:id="TurboON_LED9_Label" strokeType="OUTSIDE" strokeWidth="0.0" text="Turbo at Speed" />
+         </children>
+      </VBox>
+      <VBox fx:id="LockAtm_LED10_VBox" alignment="CENTER" layoutX="461.0" layoutY="14.0">
+         <children>
+            <Rectangle fx:id="LockAtm_LED10_LED" arcHeight="5.0" arcWidth="5.0" fill="#1f8dff" height="17.0" stroke="BLACK" strokeType="INSIDE" width="17.0" />
+            <Text fx:id="LockAtm_LED10_Label" strokeType="OUTSIDE" strokeWidth="0.0" text="Lock Vented" />
+         </children>
+      </VBox>
+      <VBox fx:id="LockValve_LED12_VBox" alignment="CENTER" layoutX="262.0" layoutY="116.0">
+         <children>
+            <Rectangle fx:id="LockValve_LED12_LED" arcHeight="5.0" arcWidth="5.0" fill="#1f8dff" height="17.0" stroke="BLACK" strokeType="INSIDE" width="17.0" />
+            <Text fx:id="LockValve_LED12_Label" strokeType="OUTSIDE" strokeWidth="0.0" text="Lock Valve" />
+         </children>
+      </VBox>
+      <VBox fx:id="TC1_LED14_VBox" alignment="CENTER" layoutX="89.0" layoutY="412.0">
+         <children>
+            <Rectangle fx:id="TC1_LED14_LED" arcHeight="5.0" arcWidth="5.0" fill="#1f8dff" height="17.0" stroke="BLACK" strokeType="INSIDE" width="17.0" />
+            <Text fx:id="TC1_LED14_Label" strokeType="OUTSIDE" strokeWidth="0.0" text="Turbo Backing" />
+         </children>
+      </VBox>
+      <VBox fx:id="TurboRoughValve_LED15_VBox" alignment="CENTER" layoutX="432.0" layoutY="361.0">
+         <children>
+            <Rectangle fx:id="TurboRoughValve_LED15_LED" arcHeight="5.0" arcWidth="5.0" fill="#1f8dff" height="17.0" stroke="BLACK" strokeType="INSIDE" width="17.0" />
+            <Text fx:id="TurboRoughValve_LED15_Label" strokeType="OUTSIDE" strokeWidth="0.0" text="Turbo Rough Valve" />
+         </children>
+      </VBox>
+      <VBox fx:id="LockRoughValve_LED17_VBox" alignment="CENTER" layoutX="349.0" layoutY="26.0">
+         <children>
+            <Rectangle fx:id="LockRoughValve_LED17_LED" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="17.0" stroke="BLACK" strokeType="INSIDE" width="17.0" />
+            <Text fx:id="LockRoughValve_LED17_Label" strokeType="OUTSIDE" strokeWidth="0.0" text="Lock Rough Valve" />
+         </children>
+      </VBox>
+      <VBox fx:id="VentLockCham_LED18_VBox" alignment="CENTER" layoutX="360.0" layoutY="177.0" prefHeight="34.0" prefWidth="62.0">
+         <children>
+            <Rectangle fx:id="VentLockCham_LED18_LED" arcHeight="5.0" arcWidth="5.0" fill="#1f8dff" height="17.0" stroke="BLACK" strokeType="INSIDE" width="17.0" />
+            <Text fx:id="VentLockCham_LED18_Label" strokeType="OUTSIDE" strokeWidth="0.0" text="Venting Lock and Chamber" textAlignment="CENTER" wrappingWidth="80.525390625" />
+         </children>
+      </VBox>
+      <VBox fx:id="VentLock_LED19_VBox" alignment="CENTER" layoutX="570.0" layoutY="86.0" prefHeight="34.0" prefWidth="62.0">
+         <children>
+            <Rectangle fx:id="VentLock_LED19_LED" arcHeight="5.0" arcWidth="5.0" fill="#1f8dff" height="17.0" stroke="BLACK" strokeType="INSIDE" width="17.0" />
+            <Text fx:id="VentLock_LED19_Label" strokeType="OUTSIDE" strokeWidth="0.0" text="Venting Lock" textAlignment="CENTER" wrappingWidth="80.525390625" />
+         </children>
+      </VBox>
+      <VBox fx:id="LockChamPumping_LED20_VBox" alignment="CENTER" layoutX="679.0" layoutY="94.0" prefHeight="34.0" prefWidth="62.0">
+         <children>
+            <Rectangle fx:id="LockChamPumping_LED20_LED" arcHeight="5.0" arcWidth="5.0" fill="#1f8dff" height="17.0" stroke="BLACK" strokeType="INSIDE" width="17.0" />
+            <Text fx:id="LockChamPumping_LED20_Label" strokeType="OUTSIDE" strokeWidth="0.0" text="LED 20" textAlignment="CENTER" wrappingWidth="80.525390625" />
+         </children>
+      </VBox>
+      <VBox fx:id="HeartBeat_LED0_VBox" alignment="CENTER" layoutX="679.0" layoutY="26.0" prefHeight="34.0" prefWidth="62.0">
+         <children>
+            <Rectangle fx:id="HeartBeat_LED0_LED" arcHeight="5.0" arcWidth="5.0" fill="#1f8dff" height="17.0" stroke="BLACK" strokeType="INSIDE" width="17.0" />
+            <Text fx:id="HeartBeat_LED0_Label" strokeType="OUTSIDE" strokeWidth="0.0" text="Program Running" textAlignment="CENTER" wrappingWidth="80.525390625" />
+         </children>
+      </VBox>
+      <ButtonBar layoutX="580.0" layoutY="28.0" prefHeight="40.0" prefWidth="68.0">
+        <buttons>
+          <Button fx:id="Start_Button" mnemonicParsing="false" onAction="#startApp" text="Start" />
+        </buttons>
+      </ButtonBar>
    </children>
 </AnchorPane>

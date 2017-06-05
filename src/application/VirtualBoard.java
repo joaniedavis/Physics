@@ -91,7 +91,7 @@ public class VirtualBoard {
 	private void InitializeLEDs() {
 		//initialize the LEDs
 		//TODO: This one might have to be a special case, as it'll have more than 3 colors
-		 LED HeartBeat_LED0 = new LED("Program Running", Color.RED, Color.GREEN, Color.PINK, "", "", false);
+//		 LED HeartBeat_LED0 = new LED("Program Running", Color.RED, Color.GREEN, Color.PINK, "", "", false);
 		 
 		 //TODO: Figure out if it's a problem to have one condition and an else clause instead of 2
 		 //TODO-2: we'll probably need to make some if/else check to make sure cond2 isn't "", that should work
@@ -150,49 +150,6 @@ public class VirtualBoard {
     	
     }
     
- // ---------Heartbeat Methods-------------------
- 		private void startHeartbeat() {
- 			heartbeatCount = 0;
- 			while (true) {
- 				// try {
- 				// wait(10);
- 				// } catch (InterruptedException e) {
- 				// // TODO Auto-generated catch block
- 				// e.printStackTrace();
- 				// }
- 				incrementHeartbeatColor();
- 			}
- 		}
- 	
- 	private void incrementHeartbeatColor() {
- 		switch (heartbeatCount) {
- 		case 0:
- 			heartbeatColor = Color.RED;
- 			heartbeatCount++;
- 			break;
- 		case 1:
- 			heartbeatColor = Color.ORANGE;
- 			heartbeatCount++;
- 			break;
- 		case 2:
- 			heartbeatColor = Color.YELLOW;
- 			heartbeatCount++;
- 			break;
- 		case 3:
- 			heartbeatColor = Color.GREEN;
- 			heartbeatCount++;
- 			break;
- 		case 4:
- 			heartbeatColor = Color.BLUE;
- 			heartbeatCount++;
- 			break;
- 		case 5:
- 			heartbeatColor = Color.PURPLE;
- 			heartbeatCount = 0;
- 			break;
-
- 		}
- 	}
     
 }
 

@@ -21,8 +21,6 @@ public class Main extends Application {
     private Stage primaryStage;
     private BorderPane rootLayout;
     
-    private int heartbeatCount;
-    private Pane HeartBeat_LED0_LED;
     
 	@Override
 	public void start(Stage primaryStage) {
