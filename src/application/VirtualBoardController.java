@@ -4,13 +4,18 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.ResourceBundle;
+
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import javafx.util.Duration;
 
 public class VirtualBoardController implements Initializable {
 	@FXML
@@ -117,38 +122,6 @@ public class VirtualBoardController implements Initializable {
 		 //startHeartbeat();
 	}
 
-	// ---------Heartbeat Methods-------------------
-
-	private void incrementHeartbeatColor() {
-		switch (heartbeatCount) {
-		case 0:
-			HeartBeat_LED0_LED.setFill(Color.RED);
-			heartbeatCount++;
-			break;
-		case 1:
-			HeartBeat_LED0_LED.setFill(Color.ORANGE);
-			heartbeatCount++;
-			break;
-		case 2:
-			HeartBeat_LED0_LED.setFill(Color.YELLOW);
-			heartbeatCount++;
-			break;
-		case 3:
-			HeartBeat_LED0_LED.setFill(Color.GREEN);
-			heartbeatCount++;
-			break;
-		case 4:
-			HeartBeat_LED0_LED.setFill(Color.BLUE);
-			heartbeatCount++;
-			break;
-		case 5:
-			HeartBeat_LED0_LED.setFill(Color.PURPLE);
-			heartbeatCount = 0;
-			break;
-
-		}
-	}
-
 	// ---------Button Methods----------------------
 	@FXML
 	private void buttonPressed(ActionEvent event) {
@@ -183,9 +156,49 @@ public class VirtualBoardController implements Initializable {
 	//------------Main Controller Methods
 	@FXML
 	private void startApp(ActionEvent event) {
-		for(Rectangle led: leds) {
-			System.out.println(led);
+		Timeline timeline = new Timeline(); 
+		timeline.getKeyFrames().add(
+				new KeyFrame(Duration.seconds(0.5), new EventHandler<ActionEvent>() {
+					public void handle(ActionEvent event) {
+						incrementHeartbeatColor();
+					}
+				})
+				);
+		timeline.setCycleCount(Timeline.INDEFINITE);
+		timeline.playFromStart();
+				
+	}
+
+
+//---------Heartbeat Methods-------------------
+
+	private void incrementHeartbeatColor() {
+		switch (heartbeatCount) {
+		case 0:
+			HeartBeat_LED0_LED.setFill(Color.RED);
+			heartbeatCount++;
+			break;
+		case 1:
+			HeartBeat_LED0_LED.setFill(Color.ORANGE);
+			heartbeatCount++;
+			break;
+		case 2:
+			HeartBeat_LED0_LED.setFill(Color.YELLOW);
+			heartbeatCount++;
+			break;
+		case 3:
+			HeartBeat_LED0_LED.setFill(Color.GREEN);
+			heartbeatCount++;
+			break;
+		case 4:
+			HeartBeat_LED0_LED.setFill(Color.BLUE);
+			heartbeatCount++;
+			break;
+		case 5:
+			HeartBeat_LED0_LED.setFill(Color.PURPLE);
+			heartbeatCount = 0;
+			break;
+
 		}
-		incrementHeartbeatColor();
 	}
 }
