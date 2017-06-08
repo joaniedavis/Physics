@@ -24,14 +24,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 public class VirtualBoard {
-	private LED blvLED;
-	private LED hiVacLED;
-	private LED turboLED;
 	
 	private ArrayList<LED> leds = new ArrayList<LED>();
 	private ArrayList<VirtualSwitch> vSwitches = new ArrayList<VirtualSwitch>();
-	private int heartbeatCount;
-	private Color heartbeatColor;
 	
 	public VirtualBoard() {
 		//Initialize vSwitches
@@ -123,6 +118,7 @@ public class VirtualBoard {
 		 leds.add(Interlock_LED3);
 		 leds.add(BLValve_LED5);
 		 leds.add(ChamHighVac_LED6);
+		 leds.add(TC2_LED7);
 		 leds.add(PumpValve_LED8);
 		 leds.add(TurboON_LED9);
 		 leds.add(LockAtm_LED10);
@@ -137,13 +133,13 @@ public class VirtualBoard {
 		
 	}
     
-//    public ArrayList<LED> getLEDs() {
-//    	return leds;
-//    }
-//    
-//    public ArrayList<VirtualSwitch> getVirtualSwitches() {
-//    	return vSwitches;
-//    }
+    public ArrayList<LED> getLEDs() {
+    	return leds;
+    }
+    
+    public ArrayList<VirtualSwitch> getVirtualSwitches() {
+    	return vSwitches;
+    }
     
     //TODO: Hardcode in the formulas that determine the values of each condition
     public void updateConditions() {
