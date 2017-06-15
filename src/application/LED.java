@@ -59,6 +59,18 @@ public class LED {
 		return currentColor;
 	}
 	
+	public Color getCond1Color() {
+		return cond1Color;
+	}
+	
+	public Color getCond2Color() {
+		return cond2Color;
+	}
+	
+	public Color getElseColor() {
+		return elseColor;
+	}
+	
 	public String getCond1() {
 		return cond1;
 	}
@@ -69,5 +81,9 @@ public class LED {
 	
 	public boolean hasElseClause() {
 		return elseClause;
+	}
+	
+	public void setCurrentColor(Color color) {
+		currentColor = color;
 	}
 }

@@ -22,11 +22,13 @@ import java.awt.event.ActionListener;
 import java.awt.geom.*;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 
 public class VirtualBoard {
 	
 	private ArrayList<LED> leds = new ArrayList<LED>();
 	private ArrayList<VirtualSwitch> vSwitches = new ArrayList<VirtualSwitch>();
+	private HashMap<String, Boolean> conditionMap;
 	
 	public VirtualBoard() {
 		//Initialize vSwitches
@@ -76,7 +78,48 @@ public class VirtualBoard {
 	 * Initialize a map of all the conditions in the system 
 	 */
 	private void InitializeConditionMap() {
+conditionMap.put("Test24V_Denkovi0_19", true);
 		
+		conditionMap.put("ValveEnable_VR1", true);
+		
+		conditionMap.put("TurboNLK_VR104", true);
+		
+		conditionMap.put("BLV_open_J1_0", true);
+		conditionMap.put("BLV_closed_J1_1", false);
+		
+		conditionMap.put("IGltSP_VR103", true);
+		conditionMap.put("!IGltSP_VR103", false);
+
+		conditionMap.put("TC2ltSP_VR203", true);
+		conditionMap.put("TC2ltSP_VR203", false);
+		
+		conditionMap.put("PV_open_J2_2", true);
+		conditionMap.put("PV_closed_J2_3", false);
+		
+		conditionMap.put("TurboatSpeed_VR202", true);
+		
+		conditionMap.put("!TC3ltSP2_VR102", true);
+		
+		conditionMap.put("TC3ltSP1_VR301", true);
+		conditionMap.put("!TC3ltSP1_VR301", false);
+		
+		conditionMap.put("TC1ltSP_VR201", true);
+		conditionMap.put("!TC1ltSP_VR201", false);
+
+		conditionMap.put("TurboRoughopen_VR601", true);
+		conditionMap.put("TurboRoughclosed_VR602", false);
+		
+		conditionMap.put("LOGIC_VentValveopen_VR303", true);
+		conditionMap.put("!LOGIC_VentValveopen_VR303", false);
+		
+		conditionMap.put("LockRoughopen_VR503", true);
+		conditionMap.put("LockRoughcloses_VR504", false);
+		
+		conditionMap.put("VendLockCham_m_S12", true);
+		
+		conditionMap.put("VentLock_m_S13", true);
+		
+		conditionMap.put("PumpLockChamber_m_S14", true);
 	}
 	
 	/*
@@ -86,7 +129,6 @@ public class VirtualBoard {
 	private void InitializeLEDs() {
 		//initialize the LEDs
 		//TODO: This one might have to be a special case, as it'll have more than 3 colors
-//		 LED HeartBeat_LED0 = new LED("Program Running", Color.RED, Color.GREEN, Color.PINK, "", "", false);
 		 
 		 //TODO: Figure out if it's a problem to have one condition and an else clause instead of 2
 		 //TODO-2: we'll probably need to make some if/else check to make sure cond2 isn't "", that should work
@@ -141,10 +183,7 @@ public class VirtualBoard {
     	return vSwitches;
     }
     
-    //TODO: Hardcode in the formulas that determine the values of each condition
-    public void updateConditions() {
-    	
-    }
+   
     
     
 }
