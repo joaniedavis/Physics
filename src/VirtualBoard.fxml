@@ -14,8 +14,8 @@
    <children>
       <VBox fx:id="ValveEnable_S2_VBox" alignment="CENTER" layoutX="630.0" layoutY="293.0" spacing="15.0">
          <children>
-            <Button fx:id="ValveEnable_S2_True" mnemonicParsing="false" onAction="#buttonPressed" stylesheets="@test.css" text="Enabled" />
-            <Button fx:id="ValveEnable_S2_False" disable="true" mnemonicParsing="false" onAction="#buttonPressed" stylesheets="@test.css" text="Disabled">
+            <Button fx:id="ValveEnable_S2_True" mnemonicParsing="false" onAction="#buttonPressed" stylesheets="@application.css" text="Enabled" />
+            <Button fx:id="ValveEnable_S2_False" disable="true" mnemonicParsing="false" onAction="#buttonPressed" stylesheets="@application.css" text="Disabled">
                <VBox.margin>
                   <Insets top="10.0" />
                </VBox.margin>
@@ -28,8 +28,8 @@
       </VBox>
       <VBox fx:id="TurboNLK_m_S3_VBox" alignment="CENTER" layoutX="456.0" layoutY="287.0" spacing="15.0">
          <children>
-            <Button fx:id="TurboNLK_m_S3_True" mnemonicParsing="false" onAction="#buttonPressed" stylesheets="@test.css" text="Bypass" />
-            <Button fx:id="TurboNLK_m_S3_False" disable="true" mnemonicParsing="false" onAction="#buttonPressed" stylesheets="@test.css" text="Normal">
+            <Button fx:id="TurboNLK_m_S3_True" mnemonicParsing="false" onAction="#buttonPressed" stylesheets="@application.css" text="Bypass" />
+            <Button fx:id="TurboNLK_m_S3_False" disable="true" mnemonicParsing="false" onAction="#buttonPressed" stylesheets="@application.css" text="Normal">
                <VBox.margin>
                   <Insets top="10.0" />
                </VBox.margin>
@@ -42,8 +42,8 @@
       </VBox>
       <VBox fx:id="BLV_AutoClose_S7_VBox" alignment="CENTER" layoutX="21.0" layoutY="178.0" spacing="15.0">
          <children>
-            <Button fx:id="BLV_AutoClose_S7_True" mnemonicParsing="false" onAction="#buttonPressed" stylesheets="@test.css" text="Auto" />
-            <Button fx:id="BLV_AutoClose_S7_False" disable="true" mnemonicParsing="false" onAction="#buttonPressed" stylesheets="@test.css" text="Close">
+            <Button fx:id="BLV_AutoClose_S7_True" mnemonicParsing="false" onAction="#buttonPressed" stylesheets="@application.css" text="Auto" />
+            <Button fx:id="BLV_AutoClose_S7_False" disable="true" mnemonicParsing="false" onAction="#buttonPressed" stylesheets="@application.css" text="Close">
                <VBox.margin>
                   <Insets top="10.0" />
                </VBox.margin>
@@ -56,8 +56,8 @@
       </VBox>
       <VBox fx:id="LockRoughingValve_AutoClose_S9_VBox" alignment="CENTER" layoutX="327.0" layoutY="4.0" prefHeight="123.0" prefWidth="92.0" spacing="15.0">
          <children>
-            <Button fx:id="LockRoughingValve_AutoClose_S9_True" mnemonicParsing="false" onAction="#buttonPressed" stylesheets="@test.css" text="Auto" />
-            <Button fx:id="LockRoughingValve_AutoClose_S9_False" disable="true" mnemonicParsing="false" onAction="#buttonPressed" stylesheets="@test.css" text="Close">
+            <Button fx:id="LockRoughingValve_AutoClose_S9_True" mnemonicParsing="false" onAction="#buttonPressed" stylesheets="@application.css" text="Auto" />
+            <Button fx:id="LockRoughingValve_AutoClose_S9_False" disable="true" mnemonicParsing="false" onAction="#buttonPressed" stylesheets="@application.css" text="Close">
                <VBox.margin>
                   <Insets top="10.0" />
                </VBox.margin>
@@ -70,8 +70,8 @@
       </VBox>
       <VBox fx:id="TurboRoughValve_AutoClose_S10_VBox" alignment="CENTER" layoutX="322.0" layoutY="316.0" spacing="15.0">
          <children>
-            <Button fx:id="TurboRoughValve_AutoClose_S10_False" mnemonicParsing="false" onAction="#buttonPressed" stylesheets="@test.css" text="Auto" />
-            <Button fx:id="TurboRoughValve_AutoClose_S10_False" disable="true" mnemonicParsing="false" onAction="#buttonPressed" stylesheets="@test.css" text="Close">
+            <Button fx:id="TurboRoughValve_AutoClose_S10_False" mnemonicParsing="false" onAction="#buttonPressed" stylesheets="@application.css" text="Auto" />
+            <Button fx:id="TurboRoughValve_AutoClose_S10_False" disable="true" mnemonicParsing="false" onAction="#buttonPressed" stylesheets="@application.css" text="Close">
                <VBox.margin>
                   <Insets top="10.0" />
                </VBox.margin>
@@ -84,8 +84,8 @@
       </VBox>
       <VBox fx:id="VentValve_AutoClose_S11_VBox" alignment="CENTER" layoutX="36.0" layoutY="4.0" spacing="15.0">
          <children>
-            <Button fx:id="VentValve_AutoClose_S11_True" mnemonicParsing="false" onAction="#buttonPressed" stylesheets="@test.css" text="Auto" />
-            <Button fx:id="VentValve_AutoClose_S11_False" disable="true" mnemonicParsing="false" onAction="#buttonPressed" stylesheets="@test.css" text="Close">
+            <Button fx:id="VentValve_AutoClose_S11_True" mnemonicParsing="false" onAction="#buttonPressed" stylesheets="@application.css" text="Auto" />
+            <Button fx:id="VentValve_AutoClose_S11_False" disable="true" mnemonicParsing="false" onAction="#buttonPressed" stylesheets="@application.css" text="Close">
                <VBox.margin>
                   <Insets top="10.0" />
                </VBox.margin>
@@ -114,8 +114,8 @@
       </VBox>
       <VBox fx:id="PumpLockChamber_m_S14_VBox" alignment="CENTER" layoutX="699.0" layoutY="45.0" spacing="15.0">
          <children>
-            <Button fx:id="PumpLockChamber_m_S14_True" mnemonicParsing="false" onAction="#buttonPressed" stylesheets="@test.css" text="Pump" />
-            <Button fx:id="PumpLockChamber_m_S14_False" disable="true" mnemonicParsing="false" onAction="#buttonPressed" stylesheets="@test.css" text="Standby">
+            <Button fx:id="PumpLockChamber_m_S14_True" mnemonicParsing="false" onAction="#buttonPressed" stylesheets="@application.css" text="Pump" />
+            <Button fx:id="PumpLockChamber_m_S14_False" disable="true" mnemonicParsing="false" onAction="#buttonPressed" stylesheets="@application.css" text="Standby">
                <VBox.margin>
                   <Insets top="10.0" />
                </VBox.margin>
@@ -219,16 +219,16 @@
       <ButtonBar layoutX="580.0" layoutY="28.0" prefHeight="40.0" prefWidth="68.0" />
       <HBox alignment="CENTER" layoutX="127.0" layoutY="258.0" prefHeight="77.0" prefWidth="200.0" spacing="10.0">
          <children>
-            <Button fx:id="PV_AutoClose_S7_True" alignment="CENTER" mnemonicParsing="false" onAction="#buttonPressed" stylesheets="@test.css" text="Auto" />
-            <Button fx:id="PV_AutoClose_S7_False" alignment="CENTER" disable="true" mnemonicParsing="false" onAction="#buttonPressed" stylesheets="@test.css" text="Close" />
+            <Button fx:id="PV_AutoClose_S7_True" alignment="CENTER" mnemonicParsing="false" onAction="#buttonPressed" stylesheets="@application.css" text="Auto" />
+            <Button fx:id="PV_AutoClose_S7_False" alignment="CENTER" disable="true" mnemonicParsing="false" onAction="#buttonPressed" stylesheets="@application.css" text="Close" />
             <Rectangle fx:id="PumpValve_LED8_LED" arcHeight="5.0" arcWidth="5.0" fill="#ffbf1e" height="17.0" stroke="BLACK" strokeType="INSIDE" width="17.0" />
          </children>
       </HBox>
       <Label fx:id="PV_AutoClose_S7_Label1" layoutX="167.0" layoutY="320.0" text="Turbo Pump Valve" />
       <HBox alignment="CENTER" layoutX="125.0" layoutY="77.0" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
          <children>
-            <Button fx:id="LockValve_AutoClose_S8_True" alignment="CENTER" mnemonicParsing="false" onAction="#buttonPressed" stylesheets="@test.css" text="Auto" />
-            <Button fx:id="LockValve_AutoClose_S8_False" alignment="CENTER" disable="true" mnemonicParsing="false" onAction="#buttonPressed" stylesheets="@test.css" text="Close" />
+            <Button fx:id="LockValve_AutoClose_S8_True" alignment="CENTER" mnemonicParsing="false" onAction="#buttonPressed" stylesheets="@application.css" text="Auto" />
+            <Button fx:id="LockValve_AutoClose_S8_False" alignment="CENTER" disable="true" mnemonicParsing="false" onAction="#buttonPressed" stylesheets="@application.css" text="Close" />
             <Rectangle fx:id="LockValve_LED12_LED" arcHeight="5.0" arcWidth="5.0" fill="#1f8dff" height="17.0" stroke="BLACK" strokeType="INSIDE" width="17.0" />
          </children>
       </HBox>

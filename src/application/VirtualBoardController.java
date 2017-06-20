@@ -18,6 +18,8 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
+import org.python.core.PyInstance;
+import org.python.util.PythonInterpreter;
 
 public class VirtualBoardController implements Initializable {
 	@FXML
@@ -85,6 +87,8 @@ public class VirtualBoardController implements Initializable {
 	private HashMap<String, Boolean> conditionMap;
 	private ArrayList<LED> ledList;
 
+	private PythonInterpreter interpreter;
+
 	private VirtualBoard vb;
 
 	@Override
@@ -116,6 +120,11 @@ public class VirtualBoardController implements Initializable {
 
 		conditionMap = new HashMap<String, Boolean>();
 		initializeConditionMap();
+
+		// Set up Python interpreter
+		PythonInterpreter.initialize(System.getProperties(), System.getProperties(), new String[0]);
+
+		this.interpreter = new PythonInterpreter();
 	}
 
 	private void initializeConditionMap() {
@@ -355,8 +364,25 @@ public class VirtualBoardController implements Initializable {
 	}
 
 	private void readGPIO() {
-		System.out.println("Reading GPIO");
+		
+		//InterpreterExample ie = new InterpreterExample();
+
+		execfile("hello.py");
+
+		PyInstance hello = createClass("Hello", "None");
+
+		hello.invoke("run");
 	}
+
+	// Helper Python Functions---------
+	void execfile(final String fileName) {
+		this.interpreter.execfile(fileName);
+	}
+
+	PyInstance createClass(final String className, final String opts) {
+		return (PyInstance) this.interpreter.eval(className + "(" + opts + ")");
+	}
+	// -------------------------------
 
 	// TODO: Possibly rename this to updatingConditions,
 	// Because that's what it does right now.
@@ -379,8 +405,7 @@ public class VirtualBoardController implements Initializable {
 				}
 			}
 		}
-		
-		
+
 		for (Node nodeIn : BLV_AutoClose_S7_VBox.getChildren()) {
 			if (nodeIn instanceof Button) {
 				Button button = (Button) nodeIn;
