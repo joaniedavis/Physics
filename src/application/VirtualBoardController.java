@@ -367,11 +367,12 @@ public class VirtualBoardController implements Initializable {
 		
 		//InterpreterExample ie = new InterpreterExample();
 
-		execfile("hello.py");
+		execfile("squareNum.py");
 
-		PyInstance hello = createClass("Hello", "None");
+		PyInstance func = createClass("SquareNum", "2");
 
-		hello.invoke("run");
+		Object num = func.invoke("run");
+		System.out.println(num);
 	}
 
 	// Helper Python Functions---------
