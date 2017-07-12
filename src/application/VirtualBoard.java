@@ -1,9 +1,10 @@
 package application;
+//TODO: Is this class necessary?
 /*Class that handles all of the other classes in the system
- * Main function includes generating all of the gui 
+ * Main function includes generating all of the gui
  * 	Checking input from the pins
  * 	Adjusting virtual constructs to match input data from the pins
- * 	
+ *
  *  --Basically this is a test version of the system to make sure I know how Java GUI works still--
  */
 
