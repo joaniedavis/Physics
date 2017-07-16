@@ -1,8 +1,8 @@
 import importlib.util
-spec = importlib.util.spec_from_file_location("ABEHelpers", "/src/ABElectronics_Python_Libraries/IOPi/ABEHelpers.py")
-foo = importlib.util.module_from_spec(spec)
-spec.loader.exec_module(foo)
-foo.MyClass()
+helpers = importlib.util.spec_from_file_location("ABEHelpers", "/src/ABElectronics_Python_Libraries/IOPi/ABEHelpers.py")
+helpersMod = importlib.util.module_from_spec(helpers)
+helpers.loader.exec_module(helpersMod)
+helpersMod.MyClass()
 
 
 #from ABE_helpers import ABEHelpers

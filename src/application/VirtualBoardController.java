@@ -1,5 +1,6 @@
 package application;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -18,8 +19,16 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
+
+//Python stuff that may be deleted later
 import org.python.core.PyInstance;
 import org.python.util.PythonInterpreter;
+
+import com.pi4j.io.i2c.I2CFactory.UnsupportedBusNumberException;
+
+//Pi4J imports
+
+
 
 public class VirtualBoardController implements Initializable {
 	@FXML
@@ -364,15 +373,21 @@ public class VirtualBoardController implements Initializable {
 	}
 
 	private void readGPIO() {
+		MCP23017Gpio gpioReader = new MCP23017Gpio();
+		try {
+			gpioReader.read();
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (UnsupportedBusNumberException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
-		//InterpreterExample ie = new InterpreterExample();
-
-		execfile("squareNum.py");
-
-		PyInstance func = createClass("SquareNum", "2");
-
-		Object num = func.invoke("run");
-		System.out.println(num);
+		
 	}
 
 	// Helper Python Functions---------
