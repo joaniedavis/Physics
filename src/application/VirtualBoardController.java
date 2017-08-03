@@ -1,6 +1,7 @@
 package application;
 
 import java.io.IOException;
+import java.io.Reader;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -15,6 +16,8 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
@@ -26,9 +29,6 @@ import org.python.util.PythonInterpreter;
 
 import com.pi4j.io.i2c.I2CFactory.UnsupportedBusNumberException;
 
-//Pi4J imports
-
-
 
 public class VirtualBoardController implements Initializable {
 	@FXML
@@ -38,9 +38,9 @@ public class VirtualBoardController implements Initializable {
 	@FXML
 	private VBox BLV_AutoClose_S7_VBox;
 	@FXML
-	private VBox PV_AutoClose_S7_VBox;
+	private HBox PV_AutoClose_S7_VBox;
 	@FXML
-	private VBox LockValve_AutoClose_S8_VBox;
+	private HBox LockValve_AutoClose_S8_VBox;
 	@FXML
 	private VBox LockRoughingValve_AutoClose_S9_VBox;
 	@FXML
@@ -91,10 +91,15 @@ public class VirtualBoardController implements Initializable {
 	@FXML
 	private Rectangle LockChamPumping_LED20_LED;
 
-	private HashMap<String, VBox> vboxes;
+	private HashMap<String, Pane> vboxes;
 	private HashMap<LED, Rectangle> leds;
 	private HashMap<String, Boolean> conditionMap;
 	private ArrayList<LED> ledList;
+	
+	//-- IO Elements
+
+	//Reader to read the gpio pins
+//	GpioReader gpioReader;
 
 	private PythonInterpreter interpreter;
 
@@ -112,8 +117,33 @@ public class VirtualBoardController implements Initializable {
 	*/
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		// TODO Auto-generated method stub
-		vboxes = new HashMap<String, VBox>();
+
+		//Make IO Elements
+		
+		// Set up Python interpreter
+		PythonInterpreter.initialize(System.getProperties(), System.getProperties(), new String[0]);
+		this.interpreter = new PythonInterpreter();
+		
+//		GpioReader gpioReader = new GpioReader();
+		
+		//Make collections needed
+		vboxes = new HashMap<String, Pane>();
+		leds = new HashMap<LED, Rectangle>();
+		ledList = new ArrayList<LED>();
+		conditionMap = new HashMap<String, Boolean>();
+
+		VentValve_LED16_LED.setFill(Color.RED);
+
+		heartbeatCount = 0;
+
+		// make the virtual board
+		initalizeVBoxes();
+		InitializeLEDs();
+		initializeConditionMap();
+
+	}
+
+	private void initalizeVBoxes() {
 		vboxes.put("ValveEnable", ValveEnable_S2_VBox);
 		vboxes.put("TurboNLK", TurboNLK_m_S3_VBox);
 		vboxes.put("BLV", BLV_AutoClose_S7_VBox);
@@ -125,25 +155,6 @@ public class VirtualBoardController implements Initializable {
 		vboxes.put("VentLockChamber", VentLockChamber_m_S12_VBox);
 		vboxes.put("VentLock", VentLock_m_S11_VBox);
 		vboxes.put("PumpLockChamber", PumpLockChamber_m_S14_VBox);
-
-		leds = new HashMap<LED, Rectangle>();
-
-		ledList = new ArrayList<LED>();
-
-		VentValve_LED16_LED.setFill(Color.RED);
-
-		heartbeatCount = 0;
-
-		// make the virtual board
-		InitializeLEDs();
-
-		conditionMap = new HashMap<String, Boolean>();
-		initializeConditionMap();
-
-		// Set up Python interpreter
-		PythonInterpreter.initialize(System.getProperties(), System.getProperties(), new String[0]);
-
-		this.interpreter = new PythonInterpreter();
 	}
 
 	/**
@@ -298,7 +309,7 @@ public class VirtualBoardController implements Initializable {
 		if (button.isDisable() == true) {
 			return;
 		} else {
-			VBox box = getVBoxFromButton(button);
+			Pane box = getVBoxFromButton(button);
 			updateVBoxButtons(button, box);
 		}
 	}
@@ -308,7 +319,7 @@ public class VirtualBoardController implements Initializable {
 	If the button is the one that was just pressed, disable it.
 	Otherwise leave the button enabled.
 	*/
-	private void updateVBoxButtons(Button button, VBox box) {
+	private void updateVBoxButtons(Button button, Pane box) {
 		for (javafx.scene.Node child : box.getChildren()) {
 			if (child.getClass() == Button.class) {
 				if (child == button) {
@@ -323,10 +334,11 @@ public class VirtualBoardController implements Initializable {
 	/**
 	Retrieves the entire VBox object based on the button parameter
 	*/
-	private VBox getVBoxFromButton(Button button) {
+	private Pane getVBoxFromButton(Button button) {
 		String id = button.idProperty().getValue().toString();
 		String name = id.split("_")[0];
-		return vboxes.get(name);
+		Pane box = vboxes.get(name);
+		return box;
 	}
 
 	// ------------Main Controller Methods
@@ -408,19 +420,18 @@ public class VirtualBoardController implements Initializable {
 	Reads in values from the GPIO board using a Python call
 	*/
 	private void readGPIO() {
-		MCP23017Gpio gpioReader = new MCP23017Gpio();
-		try {
-			gpioReader.read();
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (UnsupportedBusNumberException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+//		try {
+////			int[] states = gpioReader.read();
+//		} catch (InterruptedException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		} catch (UnsupportedBusNumberException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		} catch (IOException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
 		
 	}
 

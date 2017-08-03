@@ -2,7 +2,6 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ButtonBar?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
@@ -216,8 +215,7 @@
             <Text fx:id="HeartBeat_LED0_Label" strokeType="OUTSIDE" strokeWidth="0.0" text="Program Running" textAlignment="CENTER" wrappingWidth="80.525390625" />
          </children>
       </VBox>
-      <ButtonBar layoutX="580.0" layoutY="28.0" prefHeight="40.0" prefWidth="68.0" />
-      <HBox alignment="CENTER" layoutX="127.0" layoutY="258.0" prefHeight="77.0" prefWidth="200.0" spacing="10.0">
+      <HBox fx:id="PV_AutoClose_S7_VBox" alignment="CENTER" layoutX="127.0" layoutY="258.0" prefHeight="77.0" prefWidth="200.0" spacing="10.0">
          <children>
             <Button fx:id="PV_AutoClose_S7_True" alignment="CENTER" mnemonicParsing="false" onAction="#buttonPressed" stylesheets="@application.css" text="Auto" />
             <Button fx:id="PV_AutoClose_S7_False" alignment="CENTER" disable="true" mnemonicParsing="false" onAction="#buttonPressed" stylesheets="@application.css" text="Close" />
@@ -225,7 +223,7 @@
          </children>
       </HBox>
       <Label fx:id="PV_AutoClose_S7_Label1" layoutX="167.0" layoutY="320.0" text="Turbo Pump Valve" />
-      <HBox alignment="CENTER" layoutX="125.0" layoutY="77.0" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
+      <HBox fx:id="LockValve_AutoClose_S8_VBox" alignment="CENTER" layoutX="125.0" layoutY="77.0" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
          <children>
             <Button fx:id="LockValve_AutoClose_S8_True" alignment="CENTER" mnemonicParsing="false" onAction="#buttonPressed" stylesheets="@application.css" text="Auto" />
             <Button fx:id="LockValve_AutoClose_S8_False" alignment="CENTER" disable="true" mnemonicParsing="false" onAction="#buttonPressed" stylesheets="@application.css" text="Close" />
