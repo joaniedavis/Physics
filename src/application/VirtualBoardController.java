@@ -29,7 +29,6 @@ import org.python.util.PythonInterpreter;
 
 import com.pi4j.io.i2c.I2CFactory.UnsupportedBusNumberException;
 
-
 public class VirtualBoardController implements Initializable {
 	@FXML
 	private VBox ValveEnable_S2_VBox;
@@ -92,45 +91,56 @@ public class VirtualBoardController implements Initializable {
 	private Rectangle LockChamPumping_LED20_LED;
 
 	private HashMap<String, Pane> vboxes;
-	private HashMap<LED, Rectangle> leds;
 	private HashMap<String, Boolean> conditionMap;
-	private ArrayList<LED> ledList;
-	
-	//-- IO Elements
+	private ArrayList<VirtualRelay> virtualRelays;
 
-	//Reader to read the gpio pins
-//	GpioReader gpioReader;
+	// Single VirtualRelay declared for testing purposes.
+	private VirtualRelay ValveEnable_VR1;
+	private LED ValveEnable_LED2;
+
+	// leds is a mapping of an LED object to a corresponding Rectangle on the
+	// GUI
+	private HashMap<LED, Rectangle> leds;
+
+	private ArrayList<LED> ledList;
+
+	// -- IO Elements
+
+	// Reader to read the gpio pins
+	// GpioReader gpioReader;
 
 	private PythonInterpreter interpreter;
 
 	private VirtualBoard vb;
 
 	/**
-	This method initializes the collections that will be used throughout the processes
-	of the applciation.
-
-	vboxes is a HashMap linking String names to VBox objects from the view.  It is used in relation to the virtual switches.
-	leds is a HashMap that maps an LED object to a Rectangle from the view
-	ledList is an arrayList of LED objects
-	TODO: clean up implementation of the leds, there shouldn't be any reason for them to be in multiple collections.
-
-	*/
+	 * This method initializes the collections that will be used throughout the
+	 * processes of the applciation.
+	 * 
+	 * vboxes is a HashMap linking String names to VBox objects from the view.
+	 * It is used in relation to the virtual switches. leds is a HashMap that
+	 * maps an LED object to a Rectangle from the view ledList is an arrayList
+	 * of LED objects TODO: clean up implementation of the leds, there shouldn't
+	 * be any reason for them to be in multiple collections.
+	 * 
+	 */
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 
-		//Make IO Elements
-		
+		// Make IO Elements
+
 		// Set up Python interpreter
 		PythonInterpreter.initialize(System.getProperties(), System.getProperties(), new String[0]);
 		this.interpreter = new PythonInterpreter();
-		
-//		GpioReader gpioReader = new GpioReader();
-		
-		//Make collections needed
+
+		// GpioReader gpioReader = new GpioReader();
+
+		// Make collections needed
 		vboxes = new HashMap<String, Pane>();
 		leds = new HashMap<LED, Rectangle>();
-		ledList = new ArrayList<LED>();
+		// ledList = new ArrayList<LED>();
 		conditionMap = new HashMap<String, Boolean>();
+		virtualRelays = new ArrayList<VirtualRelay>();
 
 		VentValve_LED16_LED.setFill(Color.RED);
 
@@ -140,6 +150,7 @@ public class VirtualBoardController implements Initializable {
 		initalizeVBoxes();
 		InitializeLEDs();
 		initializeConditionMap();
+		initializeVirtualRelays();
 
 	}
 
@@ -158,8 +169,9 @@ public class VirtualBoardController implements Initializable {
 	}
 
 	/**
-	This method creates the ConditionMap, giving each condition a default value
-	*/
+	 * This method creates the ConditionMap, giving each condition a default
+	 * value
+	 */
 	private void initializeConditionMap() {
 		conditionMap.put("Test24V_Denkovi0_19", false);
 
@@ -211,8 +223,62 @@ public class VirtualBoardController implements Initializable {
 	}
 
 	/**
-	This method initializes the leds HashMap
-	*/
+	 * This method creates the ConditionMap, giving each condition a default
+	 * value
+	 */
+	private void initializeVirtualRelays() {
+		VirtualRelay Test24V_Denkovi0_19 = new VirtualRelay("Test24V_Denkovi0_19", false);
+
+		ValveEnable_VR1 = new VirtualRelay("ValveEnable_VR1", false);
+
+		VirtualRelay TurboNLK_VR104 = new VirtualRelay("TurboNLK_VR104", false);
+
+		// conditionMap.put("BLV_open_J1_0", true);
+		// conditionMap.put("BLV_closed_J1_1", false);
+		//
+		// conditionMap.put("IGltSP_VR103", true);
+		// conditionMap.put("!IGltSP_VR103", false);
+		//
+		// conditionMap.put("TC2ltSP_VR203", true);
+		// conditionMap.put("!TC2ltSP_VR203", false);
+		//
+		// conditionMap.put("PV_open_J2_2", true);
+		// conditionMap.put("PV_closed_J2_3", false);
+		//
+		// conditionMap.put("TurboatSpeed_VR202", true);
+		//
+		// conditionMap.put("!TC3ltSP2_VR102", true);
+		//
+		// conditionMap.put("TC3ltSP1_VR301", true);
+		// conditionMap.put("!TC3ltSP1_VR301", false);
+		//
+		// conditionMap.put("LVopen_VR501", true);
+		// conditionMap.put("LVclosed_VR502", false);
+		//
+		// conditionMap.put("TC1ltSP_VR201", true);
+		// conditionMap.put("!TC1ltSP_VR201", false);
+		//
+		// conditionMap.put("TurboRoughopen_VR601", true);
+		// conditionMap.put("TurboRoughclosed_VR602", false);
+		//
+		// conditionMap.put("LOGIC_VentValveopen_VR303", true);
+		// conditionMap.put("!LOGIC_VentValveopen_VR303", false);
+		//
+		// conditionMap.put("LockRoughopen_VR503", true);
+		// conditionMap.put("LockRoughcloses_VR504", false);
+		//
+		// conditionMap.put("VendLockCham_m_S12", false);
+		//
+		// conditionMap.put("VentLock_m_S13", false);
+		//
+		// conditionMap.put("PumpLockChamber_m_S14", true);
+		// conditionMap.put("", null);
+
+	}
+
+	/**
+	 * This method initializes the leds HashMap
+	 */
 	private void InitializeLEDs() {
 		// initialize the LEDs
 		// TODO: This one might have to be a special case, as it'll have more
@@ -225,34 +291,34 @@ public class VirtualBoardController implements Initializable {
 		// TODO-2: we'll probably need to make some if/else check to make sure
 		// cond2 isn't "", that should work
 		LED Test24V_LED1 = new LED("24V on", Color.GREEN, null, Color.GRAY, "Test24V_Denkovi0_19", "", true);
-		LED ValveEnable_LED2 = new LED("Valves Enabled", Color.YELLOW, null, Color.GRAY, "ValveEnable_VR1", "", true);
+		ValveEnable_LED2 = new LED("Valves Enabled", Color.YELLOW, null, Color.GRAY, "ValveEnable_VR1", "", true);
 		LED Interlock_LED3 = new LED("Bypass", Color.RED, null, Color.GRAY, "TurboNLK_VR104", "", true);
 		LED BLValve_LED5 = new LED("Beam Line Valve", Color.GREEN, Color.RED, Color.GRAY, "BLV_open_J1_0",
-		"BLV_closed_J1_1", true);
+				"BLV_closed_J1_1", true);
 		LED ChamHighVac_LED6 = new LED("Chamber at High Vacuum", Color.GREEN, Color.RED, null, "IGltSP_VR103",
-		"!IGltSP_VR103", false);
+				"!IGltSP_VR103", false);
 		LED TC2_LED7 = new LED("Chamber at Rough Vacuum", Color.GREEN, Color.RED, null, "TC2ltSP_VR203",
-		"!TC2ltSP_VR203", false);
+				"!TC2ltSP_VR203", false);
 		LED PumpValve_LED8 = new LED("Pump Valve", Color.GREEN, Color.RED, Color.GRAY, "PV_open_J2_2", "PV_closed_J2_3",
-		true);
+				true);
 		LED TurboON_LED9 = new LED("Turbo at Speed", Color.YELLOW, null, Color.GRAY, "TurboatSpeed_VR202", "", true);
 		LED LockAtm_LED10 = new LED("Lock Vented", Color.YELLOW, null, Color.GRAY, "!TC3ltSP2_VR102", "", true);
 		LED TC3_LED11 = new LED("Lock at Vacuum", Color.GREEN, Color.RED, null, "TC3ltSP1_VR301", "!TC3ltSP1_VR301",
-		false);
+				false);
 		LED LockValve_LED12 = new LED("Lock Valve", Color.GREEN, Color.RED, Color.GRAY, "LVopen_VR501",
-		"LVclosed_VR502", true);
+				"LVclosed_VR502", true);
 		LED TC1_LED14 = new LED("Turbo Backing", Color.GREEN, Color.RED, null, "TC1ltSP_VR201", "!TC1ltSP_VR201",
-		false);
+				false);
 		// TODO: Color for fault? Currently it's black
 		LED TurboRoughValve_LED15 = new LED("Turbo Rough Valve", Color.GREEN, Color.RED, Color.BLACK,
-		"TurboRoughopen_VR601", "TurboRoughclosed_VR602", true);
+				"TurboRoughopen_VR601", "TurboRoughclosed_VR602", true);
 		LED VentValve_LED16 = new LED("Vent Valve", Color.GREEN, Color.RED, null, "LOGIC_VentValveopen_VR303",
-		"!LOGIC_VentValveopen_VR303", false);
+				"!LOGIC_VentValveopen_VR303", false);
 		// TODO-2 also fault state is black here
 		LED LockRoughValve_LED17 = new LED("Lock Rough Valve", Color.GREEN, Color.RED, Color.BLACK,
-		"LockRoughopen_VR503", "LockRoughcloses_VR504", true);
+				"LockRoughopen_VR503", "LockRoughcloses_VR504", true);
 		LED VentLockCham_LED18 = new LED("Venting Lock and Chamber", Color.YELLOW, null, Color.GRAY,
-		"VendLockCham_m_S12", "", true);
+				"VendLockCham_m_S12", "", true);
 		LED VentLock_LED19 = new LED("Venting Lock", Color.YELLOW, null, Color.GRAY, "VentLock_m_S13", "", true);
 		// TODO: Ask DeYoung if this one needs a label
 		LED LockChamPumping_LED20 = new LED("", Color.YELLOW, null, Color.GRAY, "PumpLockChamber_m_S14", "", true);
@@ -277,32 +343,32 @@ public class VirtualBoardController implements Initializable {
 		leds.put(VentLock_LED19, VentLock_LED19_LED);
 		leds.put(LockChamPumping_LED20, LockChamPumping_LED20_LED);
 
-		// Add LEDS to leds Array
-		ledList.add(Test24V_LED1);
-		ledList.add(ValveEnable_LED2);
-		ledList.add(Interlock_LED3);
-		ledList.add(BLValve_LED5);
-		ledList.add(ChamHighVac_LED6);
-		ledList.add(TC2_LED7);
-		ledList.add(PumpValve_LED8);
-		ledList.add(TurboON_LED9);
-		ledList.add(LockAtm_LED10);
-		ledList.add(TC3_LED11);
-		ledList.add(TC1_LED14);
-		ledList.add(TurboRoughValve_LED15);
-		ledList.add(VentValve_LED16);
-		ledList.add(LockRoughValve_LED17);
-		ledList.add(VentLockCham_LED18);
-		ledList.add(VentLock_LED19);
-		ledList.add(LockChamPumping_LED20);
+		// // Add LEDS to leds Array
+		// ledList.add(Test24V_LED1);
+		// ledList.add(ValveEnable_LED2);
+		// ledList.add(Interlock_LED3);
+		// ledList.add(BLValve_LED5);
+		// ledList.add(ChamHighVac_LED6);
+		// ledList.add(TC2_LED7);
+		// ledList.add(PumpValve_LED8);
+		// ledList.add(TurboON_LED9);
+		// ledList.add(LockAtm_LED10);
+		// ledList.add(TC3_LED11);
+		// ledList.add(TC1_LED14);
+		// ledList.add(TurboRoughValve_LED15);
+		// ledList.add(VentValve_LED16);
+		// ledList.add(LockRoughValve_LED17);
+		// ledList.add(VentLockCham_LED18);
+		// ledList.add(VentLock_LED19);
+		// ledList.add(LockChamPumping_LED20);
 
 	}
 
 	// ---------Button Methods----------------------
 
 	/**
-	If a button is pressed that is not disabled, update the VBox
-	*/
+	 * If a button is pressed that is not disabled, update the VBox
+	 */
 	@FXML
 	private void buttonPressed(ActionEvent event) {
 		Button button = (Button) event.getSource();
@@ -315,8 +381,8 @@ public class VirtualBoardController implements Initializable {
 	}
 
 	/**
-	Retrieves the entire VBox object based on the button parameter
-	*/
+	 * Retrieves the entire VBox object based on the button parameter
+	 */
 	private Pane getVBoxFromButton(Button button) {
 		String id = button.idProperty().getValue().toString();
 		String name = id.split("_")[0];
@@ -325,10 +391,9 @@ public class VirtualBoardController implements Initializable {
 	}
 
 	/**
-	Iterate through the buttons of the VBox.
-	If the button is the one that was just pressed, disable it.
-	Otherwise leave the button enabled.
-	*/
+	 * Iterate through the buttons of the VBox. If the button is the one that
+	 * was just pressed, disable it. Otherwise leave the button enabled.
+	 */
 	private void updateVBoxButtons(Button button, Pane box) {
 		for (javafx.scene.Node child : box.getChildren()) {
 			if (child.getClass() == Button.class) {
@@ -344,8 +409,9 @@ public class VirtualBoardController implements Initializable {
 	// ------------Main Controller Methods
 
 	/**
-	Create a timeline with frames for each of the updating functions and cycle through those frames infinitely
-	*/
+	 * Create a timeline with frames for each of the updating functions and
+	 * cycle through those frames infinitely
+	 */
 	@FXML
 	private void startApp(ActionEvent event) {
 		Timeline timeline = new Timeline();
@@ -388,27 +454,27 @@ public class VirtualBoardController implements Initializable {
 
 	private void incrementHeartbeatColor() {
 		switch (heartbeatCount) {
-			case 0:
+		case 0:
 			HeartBeat_LED0_LED.setFill(Color.RED);
 			heartbeatCount++;
 			break;
-			case 1:
+		case 1:
 			HeartBeat_LED0_LED.setFill(Color.ORANGE);
 			heartbeatCount++;
 			break;
-			case 2:
+		case 2:
 			HeartBeat_LED0_LED.setFill(Color.YELLOW);
 			heartbeatCount++;
 			break;
-			case 3:
+		case 3:
 			HeartBeat_LED0_LED.setFill(Color.GREEN);
 			heartbeatCount++;
 			break;
-			case 4:
+		case 4:
 			HeartBeat_LED0_LED.setFill(Color.BLUE);
 			heartbeatCount++;
 			break;
-			case 5:
+		case 5:
 			HeartBeat_LED0_LED.setFill(Color.PURPLE);
 			heartbeatCount = 0;
 			break;
@@ -417,26 +483,26 @@ public class VirtualBoardController implements Initializable {
 	}
 
 	/**
-	Reads in values from the GPIO board using a Python call
-	*/
+	 * Reads in values from the GPIO board using a Python call
+	 */
 	private void readGPIO() {
 		System.out.println("Reading GPIO");
-		
-		//TODO: This section is commented out as I'm developing
+
+		// TODO: This section is commented out as I'm developing
 		// on my Windows Machine, which has no GPIO board to read
-//		try {
-////			int[] states = gpioReader.read();
-//		} catch (InterruptedException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		} catch (UnsupportedBusNumberException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		} catch (IOException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-		
+		// try {
+		//// int[] states = gpioReader.read();
+		// } catch (InterruptedException e) {
+		// // TODO Auto-generated catch block
+		// e.printStackTrace();
+		// } catch (UnsupportedBusNumberException e) {
+		// // TODO Auto-generated catch block
+		// e.printStackTrace();
+		// } catch (IOException e) {
+		// // TODO Auto-generated catch block
+		// e.printStackTrace();
+		// }
+
 	}
 
 	// Helper Jython Functions---------
@@ -452,15 +518,18 @@ public class VirtualBoardController implements Initializable {
 	// TODO: Possibly rename this to updatingConditions,
 	// Because that's what it does right now.
 	/**
-	Iterates through VBoxes' buttons and updates ConditionMap based on those values
-	TODO: Not fully implemented - Currently only reads in from BLV VBox
-	*/
+	 * Iterates through VBoxes' buttons and updates ConditionMap based on those
+	 * values TODO: Not fully implemented - Currently only reads in from BLV
+	 * VBox
+	 */
 	private void readVirtualSwitches() {
 		System.out.println("Reading Virtual Switches");
 
-		for (String boxName : vboxes.keySet()) {
-			readVirtualSwitch(vboxes.get(boxName), boxName);
-		}
+		// for (String boxName : vboxes.keySet()) {
+		String boxName = "ValveEnable";
+		Pane box = vboxes.get("ValveEnable");
+		readVirtualSwitch(box, boxName);
+		// }
 
 	}
 
@@ -469,12 +538,14 @@ public class VirtualBoardController implements Initializable {
 			if (nodeIn instanceof Button) {
 				Button button = (Button) nodeIn;
 				if (!button.isDisabled()) {
-					if (button.getId().equals(boxName + "_True")) {
-						conditionMap.put("BLV_open_J1_0", true);
-						conditionMap.put("BLV_closed_J1_1", false);
-					} else if (button.getId().equals(boxName + "_False")) {
-						conditionMap.put("BLV_open_J1_0", false);
-						conditionMap.put("BLV_closed_J1_1", true);
+					if (button.getId().contains("_True")) {
+						// conditionMap.put("BLV_open_J1_0", true);
+						// conditionMap.put("BLV_closed_J1_1", false);
+						ValveEnable_VR1.setStatus(true);
+					} else if (button.getId().contains("_False")) {
+						// conditionMap.put("BLV_open_J1_0", false);
+						// conditionMap.put("BLV_closed_J1_1", true);
+						ValveEnable_VR1.setStatus(false);
 					}
 				}
 			}
@@ -482,29 +553,29 @@ public class VirtualBoardController implements Initializable {
 	}
 
 	/**
-	Updates Virtual Relays
-	TODO: Not implemented
-	*/
+	 * Updates Virtual Relays TODO: Not implemented
+	 */
 	private void updateVirtualRelays() {
 		System.out.print("Updating Virual Relays");
 	}
 
 	/**
-	Reads in values from the Real relays and stores them internally
-	*/
+	 * Reads in values from the Real relays and stores them internally
+	 */
 	// TODO: Is this where the conditions would be updated?
 	private void updateRealRelays() {
 		System.out.println("Updating Real Relays");
 	}
 
 	/**
-	Iterates through all of the LED objects in the ledList.
-	For each LED object, checks against the LED's conditions for a true condition.
-	Updates the LED's associated Rectangle object's color in the view to match the true condition.
-	*/
+	 * Iterates through all of the LED objects in the ledList. For each LED
+	 * object, checks against the LED's conditions for a true condition. Updates
+	 * the LED's associated Rectangle object's color in the view to match the
+	 * true condition.
+	 */
 	private void updateLEDs() {
 		System.out.println("Updating LEDS");
-		for (LED led : ledList) {
+		for (LED led : leds.keySet()) {
 			// LED led = ledList.get(3);
 			if (led != null) {
 				// check cond1
@@ -531,5 +602,12 @@ public class VirtualBoardController implements Initializable {
 				}
 			}
 		}
+
+		if (ValveEnable_VR1.getStatus() == true) {
+			ValveEnable_LED2.setCurrentColor(ValveEnable_LED2.getCond1Color());
+		} else {
+			ValveEnable_LED2.setCurrentColor(ValveEnable_LED2.getCond2Color());
+		}
+
 	}
 }

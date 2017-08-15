@@ -16,9 +16,11 @@ public class VirtualRelay {
 	private String name;
 	
 	//indicates current status of the relay
-	private RelayStatus status;
+	// true == on
+	// false == off
+	private boolean status;
 	
-	public VirtualRelay(String name, RelayStatus status) {
+	public VirtualRelay(String name, boolean status) {
 		this.name = name;
 		this.status = status;
 	}
@@ -27,7 +29,11 @@ public class VirtualRelay {
 		return name;
 	}
 	
-	public RelayStatus getStatus() {
+	public boolean getStatus() {
 		return status;
+	}
+	
+	public void setStatus(boolean newStatus) {
+		status = newStatus;
 	}
 }
