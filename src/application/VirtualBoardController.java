@@ -315,6 +315,16 @@ public class VirtualBoardController implements Initializable {
 	}
 
 	/**
+	Retrieves the entire VBox object based on the button parameter
+	*/
+	private Pane getVBoxFromButton(Button button) {
+		String id = button.idProperty().getValue().toString();
+		String name = id.split("_")[0];
+		Pane box = vboxes.get(name);
+		return box;
+	}
+
+	/**
 	Iterate through the buttons of the VBox.
 	If the button is the one that was just pressed, disable it.
 	Otherwise leave the button enabled.
@@ -329,16 +339,6 @@ public class VirtualBoardController implements Initializable {
 				}
 			}
 		}
-	}
-
-	/**
-	Retrieves the entire VBox object based on the button parameter
-	*/
-	private Pane getVBoxFromButton(Button button) {
-		String id = button.idProperty().getValue().toString();
-		String name = id.split("_")[0];
-		Pane box = vboxes.get(name);
-		return box;
 	}
 
 	// ------------Main Controller Methods
@@ -420,6 +420,10 @@ public class VirtualBoardController implements Initializable {
 	Reads in values from the GPIO board using a Python call
 	*/
 	private void readGPIO() {
+		System.out.println("Reading GPIO");
+		
+		//TODO: This section is commented out as I'm developing
+		// on my Windows Machine, which has no GPIO board to read
 //		try {
 ////			int[] states = gpioReader.read();
 //		} catch (InterruptedException e) {
@@ -454,38 +458,27 @@ public class VirtualBoardController implements Initializable {
 	private void readVirtualSwitches() {
 		System.out.println("Reading Virtual Switches");
 
-		// TODO: add in all the others. This is a proof of concept for the
-		// BEAMLINEVALVE
-		for (Node nodeIn : BLV_AutoClose_S7_VBox.getChildren()) {
+		for (String boxName : vboxes.keySet()) {
+			readVirtualSwitch(vboxes.get(boxName), boxName);
+		}
+
+	}
+
+	private void readVirtualSwitch(Pane box, String boxName) {
+		for (Node nodeIn : box.getChildren()) {
 			if (nodeIn instanceof Button) {
 				Button button = (Button) nodeIn;
 				if (!button.isDisabled()) {
-					if (button.getId().equals("BLV_AutoClose_S7_True")) {
+					if (button.getId().equals(boxName + "_True")) {
 						conditionMap.put("BLV_open_J1_0", true);
 						conditionMap.put("BLV_closed_J1_1", false);
-					} else if (button.getId().equals("BLV_AutoClose_S7_False")) {
+					} else if (button.getId().equals(boxName + "_False")) {
 						conditionMap.put("BLV_open_J1_0", false);
 						conditionMap.put("BLV_closed_J1_1", true);
 					}
 				}
 			}
 		}
-
-		for (Node nodeIn : BLV_AutoClose_S7_VBox.getChildren()) {
-			if (nodeIn instanceof Button) {
-				Button button = (Button) nodeIn;
-				if (!button.isDisabled()) {
-					if (button.getId().equals("BLV_AutoClose_S7_True")) {
-						conditionMap.put("BLV_open_J1_0", true);
-						conditionMap.put("BLV_closed_J1_1", false);
-					} else if (button.getId().equals("BLV_AutoClose_S7_False")) {
-						conditionMap.put("BLV_open_J1_0", false);
-						conditionMap.put("BLV_closed_J1_1", true);
-					}
-				}
-			}
-		}
-
 	}
 
 	/**
