@@ -1,11 +1,8 @@
 package application;
 
-import java.io.IOException;
-import java.io.Reader;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.ResourceBundle;
 
 import javafx.animation.KeyFrame;
@@ -26,8 +23,6 @@ import javafx.util.Duration;
 //Python stuff that may be deleted later
 import org.python.core.PyInstance;
 import org.python.util.PythonInterpreter;
-
-import com.pi4j.io.i2c.I2CFactory.UnsupportedBusNumberException;
 
 public class VirtualBoardController implements Initializable {
 	@FXML
@@ -110,8 +105,6 @@ public class VirtualBoardController implements Initializable {
 	// GpioReader gpioReader;
 
 	private PythonInterpreter interpreter;
-
-	private VirtualBoard vb;
 
 	/**
 	 * This method initializes the collections that will be used throughout the
