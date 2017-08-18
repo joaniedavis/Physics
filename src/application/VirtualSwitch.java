@@ -1,6 +1,9 @@
 package application;
 import java.awt.Point;
 
+import javafx.scene.control.Button;
+import javafx.scene.layout.Pane;
+
 
 //TODO: make sure this class description is accurate
 /**
@@ -10,51 +13,68 @@ import java.awt.Point;
  *
  */
 public class VirtualSwitch {
-	//Name of the switch
-	private String label;
+	// The JavaFX pane that contains the buttons and label of the Switch
+	private Pane pane;
 	
-	//Label for the button indicating the true state of the switch
-	private String trueStateLabel;
+	// The button corresponding to the true state of the switch
+	private Button trueButton;
 	
-	//Label for the button indicating the false state of the switch
-	private String falseStateLabel;
+	// The button corresponding to the false state of the switch
+	private Button falseButton;
+	
+	// The optional third button corresponding to the off state of the switch
+	private Button offButton;
 	
 	//SwitchState indicating if the current state of the switch is TRUE, FALSE, or in some cases, THIRD (special case for 3-state switches)
 	private SwitchState state;
 	
-	//boolean indicating if the switch has two or three states
-	//TODO: both switches that have 3 states have a third state of Off, should that be a label or just assumed?
-	private boolean hasThreeStates;
-	
-	public VirtualSwitch(String label, String trueStateLabel, String falseStateLabel, SwitchState state, boolean hasThreeStates) {
-		this.label = label;
-		this.trueStateLabel = trueStateLabel;
-		this.falseStateLabel= falseStateLabel;
-		this.state = state;
-		this.hasThreeStates = hasThreeStates;
+	public VirtualSwitch(Pane pane, Button trueButton, Button falseButton, Button offButton) {
+		this.pane = pane;
+		this.trueButton = trueButton;
+		this.falseButton = falseButton;
+		this.offButton = offButton;
 	}
 	
-	public String getLabel() {
-		return label;
+	// Constructor for no offButton, defaults offButton to null
+	public VirtualSwitch(Pane pane, Button trueButton, Button falseButton) {
+		this.pane = pane;
+		this.trueButton = trueButton;
+		this.falseButton = falseButton;
+		this.offButton = null;
 	}
 	
-	public String getTrueState() {
-		return trueStateLabel;
-	}
-	
-	public String getFalseState() {
-		return falseStateLabel;
+	// Takes in a Button and updates the Buttons and Switch accordingly
+	// Only updates offButton if not null
+	public void update(Button updateButton) {
+		if (updateButton.equals(trueButton)) {
+			trueButton.setDisable(true);
+			falseButton.setDisable(false);
+			if (offButton != null) {
+				offButton.setDisable(false);
+			}
+			state = SwitchState.TRUE;
+		} else if(updateButton.equals(falseButton)) {
+			trueButton.setDisable(false);
+			falseButton.setDisable(true);
+			if (offButton != null) {
+				offButton.setDisable(false);
+			}
+			state = SwitchState.FALSE;
+		} else if(updateButton.equals(offButton) && updateButton != null) {
+			trueButton.setDisable(false);
+			falseButton.setDisable(false);
+			if (offButton != null) {
+				System.out.println("We should never get here: updateButton");
+				offButton.setDisable(true);
+			}
+			state = SwitchState.OFF;
+		} else {
+			// TODO: Handle this better than just printing that there was a problem
+			System.out.println("We should never get here");
+		}
 	}
 	
 	public SwitchState getState() {
 		return state;
-	}
-	
-	public boolean hasThreeStates(){
-		return hasThreeStates;
-	}
-	
-	public void setState(SwitchState newState){
-		state = newState;
 	}
 }
