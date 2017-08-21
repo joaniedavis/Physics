@@ -27,35 +27,8 @@ import org.python.util.PythonInterpreter;
 
 public class VirtualBoardController implements Initializable {
 	// All of these accesible features have to be named here in order to retrieve them based on their FX-IDs
-//	@FXML
-//	private VBox ValveEnable_S2_VBox;
-//	private Button ValveEnable_S2_TrueButton;
-//	private Button ValveEnable_S2_FalseButton;
-//	@FXML
-//	private VBox TurboNLK_m_S3_VBox;
-//	@FXML
-//	private VBox BLV_AutoClose_S7_VBox;
-//	@FXML
-//	private HBox PV_AutoClose_S7_VBox;
-//	@FXML
-//	private HBox LockValve_AutoClose_S8_VBox;
-//	@FXML
-//	private VBox LockRoughingValve_AutoClose_S9_VBox;
-//	@FXML
-//	private VBox TurboRoughValve_AutoClose_S10_VBox;
-//	@FXML
-//	private VBox VentValve_AutoClose_S11_VBox;
-//	@FXML
-//	private VBox VentLockChamber_m_S12_VBox;
-//	@FXML
-//	private VBox VentLock_m_S11_VBox;
-//	@FXML
-//	private VBox PumpLockChamber_m_S14_VBox;
-	
 	@FXML
 	private Button Start_Button;
-	@FXML
-	private Scene scene;
 
 	@FXML
 	public Rectangle HeartBeat_LED0_LED;
@@ -147,27 +120,13 @@ public class VirtualBoardController implements Initializable {
 
 	}
 	
-	private void setup() {
+	private void setup(Scene scene) {
 		fillVSHandler(scene);
 		InitializeLEDs();
 		initializeConditionMap();
 		initializeVirtualRelays();
 
 	}
-
-//	private void initalizeVBoxes() {
-//		vboxes.put("ValveEnable", ValveEnable_S2_VBox);
-//		vboxes.put("TurboNLK", TurboNLK_m_S3_VBox);
-//		vboxes.put("BLV", BLV_AutoClose_S7_VBox);
-//		vboxes.put("PV", PV_AutoClose_S7_VBox);
-//		vboxes.put("LockValve", LockValve_AutoClose_S8_VBox);
-//		vboxes.put("LockRoughingValve", LockRoughingValve_AutoClose_S9_VBox);
-//		vboxes.put("TurboRoughValve", TurboRoughValve_AutoClose_S10_VBox);
-//		vboxes.put("VentValve", VentValve_AutoClose_S11_VBox);
-//		vboxes.put("VentLockChamber", VentLockChamber_m_S12_VBox);
-//		vboxes.put("VentLock", VentLock_m_S11_VBox);
-//		vboxes.put("PumpLockChamber", PumpLockChamber_m_S14_VBox);
-//	}
 	
 	private void fillVSHandler(Scene scene) {
 		if(scene == null) {
@@ -399,31 +358,6 @@ public class VirtualBoardController implements Initializable {
 		vsHandler.updateVirtualSwitch(button);
 	}
 
-	/**
-	 * Retrieves the entire VBox object based on the button parameter
-	 */
-//	private Pane getVBoxFromButton(Button button) {
-//		String id = button.idProperty().getValue().toString();
-//		String name = id.split("_")[0];
-//		Pane box = vboxes.get(name);
-//		return box;
-//	}
-
-	/**
-	 * Iterate through the buttons of the VBox. If the button is the one that
-	 * was just pressed, disable it. Otherwise leave the button enabled.
-	 */
-	private void updateVBoxButtons(Button button, Pane box) {
-		for (javafx.scene.Node child : box.getChildren()) {
-			if (child.getClass() == Button.class) {
-				if (child == button) {
-					child.setDisable(true);
-				} else {
-					child.setDisable(false);
-				}
-			}
-		}
-	}
 
 	// ------------Main Controller Methods
 
@@ -433,8 +367,8 @@ public class VirtualBoardController implements Initializable {
 	 */
 	@FXML
 	private void startApp(ActionEvent event) {
-		scene = Start_Button.getScene();
-		setup();
+		Scene scene = Start_Button.getScene();
+		setup(scene);
 		Timeline timeline = new Timeline();
 		timeline.getKeyFrames().add(new KeyFrame(Duration.seconds(0.5), new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent event) {
