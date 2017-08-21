@@ -69,7 +69,7 @@
       </VBox>
       <VBox fx:id="TurboRoughValve_AutoClose_S10_VBox" alignment="CENTER" layoutX="322.0" layoutY="316.0" spacing="15.0">
          <children>
-            <Button fx:id="TurboRoughValve_AutoClose_S10_False" mnemonicParsing="false" onAction="#buttonPressed" stylesheets="@application.css" text="Auto" />
+            <Button fx:id="TurboRoughValve_AutoClose_S10_True" mnemonicParsing="false" onAction="#buttonPressed" stylesheets="@application.css" text="Auto" />
             <Button fx:id="TurboRoughValve_AutoClose_S10_False" disable="true" mnemonicParsing="false" onAction="#buttonPressed" stylesheets="@application.css" text="Close">
                <VBox.margin>
                   <Insets top="10.0" />

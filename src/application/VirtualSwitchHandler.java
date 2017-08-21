@@ -2,6 +2,7 @@ package application;
 
 import java.util.HashMap;
 
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.layout.Pane;
 
@@ -28,18 +29,18 @@ public class VirtualSwitchHandler {
 	 * @param falseButton - the Switch's falseButton
 	 * @param offButton - the Switch's (optional) offButton.  If there is no offButton, pass in null
 	 */
-	public void addVirtualSwitch(String name, Pane pane, Button trueButton, Button falseButton, Button offButton) {
+	public void addVirtualSwitch(String name, Node pane, Node trueButton, Node falseButton, Node offButton) {
 		// Create VirtualSwitch
-		VirtualSwitch vs = new VirtualSwitch(pane, trueButton, falseButton, offButton);
+		VirtualSwitch vs = new VirtualSwitch((Pane) pane, (Button) trueButton, (Button) falseButton, (Button) offButton);
 		
 		// Name Switch and add to virtualSwitchMap
 		virtualSwitchMap.put(name, vs);
 		
 		// Add button relations to buttonToSwitchMap
-		buttonToSwitchMap.put(trueButton, vs);
-		buttonToSwitchMap.put(falseButton, vs);
+		buttonToSwitchMap.put((Button) trueButton, vs);
+		buttonToSwitchMap.put((Button) falseButton, vs);
 		if(offButton != null) {
-			buttonToSwitchMap.put(offButton, vs);
+			buttonToSwitchMap.put((Button) offButton, vs);
 		}
 	}
 	
@@ -64,6 +65,7 @@ public class VirtualSwitchHandler {
 	
 	// TODO: I'm not sure how I want to represent the switch states yet, so I'm leaving this blank for the moment.
 	public void getSwitchStates() {
+		System.out.println("Reading Virtual Switches");
 		
 	}
 }

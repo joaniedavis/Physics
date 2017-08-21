@@ -35,14 +35,6 @@ public class VirtualSwitch {
 		this.offButton = offButton;
 	}
 	
-	// Constructor for no offButton, defaults offButton to null
-	public VirtualSwitch(Pane pane, Button trueButton, Button falseButton) {
-		this.pane = pane;
-		this.trueButton = trueButton;
-		this.falseButton = falseButton;
-		this.offButton = null;
-	}
-	
 	// Takes in a Button and updates the Buttons and Switch accordingly
 	// Only updates offButton if not null
 	public void update(Button updateButton) {
@@ -64,8 +56,9 @@ public class VirtualSwitch {
 			trueButton.setDisable(false);
 			falseButton.setDisable(false);
 			if (offButton != null) {
-				System.out.println("We should never get here: updateButton");
 				offButton.setDisable(true);
+			} else {
+				System.out.println("We should never get here");
 			}
 			state = SwitchState.OFF;
 		} else {
