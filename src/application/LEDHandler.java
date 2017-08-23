@@ -8,7 +8,7 @@ public class LEDHandler {
     this.leds = new ArrayList<LED>();
   }
 
-  public void AddLED(String label, Color cond1Color, Color cond2Color, Color elseColor, String cond1, String cond2, boolean elseClause, Rectangle gui_Rect) {
+  public void addLED(String label, Color cond1Color, Color cond2Color, Color elseColor, String cond1, String cond2, boolean elseClause, Rectangle gui_Rect) {
     LED led = new LED(String label, cond1Color, cond2Color, elseColor, cond1, cond2, elseClause, gui_Rect);
     leds.add(led);
   }

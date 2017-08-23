@@ -69,6 +69,7 @@ public class VirtualBoardController implements Initializable {
 
 	//private HashMap<String, Pane> vboxes;
 	private VirtualSwitchHandler vsHandler;
+	private LEDHandler ledHandler;
 	private HashMap<String, Boolean> conditionMap;
 	private ArrayList<VirtualRelay> virtualRelays;
 
@@ -78,9 +79,9 @@ public class VirtualBoardController implements Initializable {
 
 	// leds is a mapping of an LED object to a corresponding Rectangle on the
 	// GUI
-	private HashMap<LED, Rectangle> leds;
+	// private HashMap<LED, Rectangle> leds;
 
-	private ArrayList<LED> ledList;
+	// private ArrayList<LED> ledList;
 
 	// -- IO Elements
 
@@ -108,35 +109,37 @@ public class VirtualBoardController implements Initializable {
 		this.interpreter = new PythonInterpreter();
 
 		// GpioReader gpioReader = new GpioReader();
-		
+
 
 		vsHandler = new VirtualSwitchHandler();
-		leds = new HashMap<LED, Rectangle>();
+		ledHandler = new LEDHandler();
+		// leds = new HashMap<LED, Rectangle>();
 		conditionMap = new HashMap<String, Boolean>();
 		virtualRelays = new ArrayList<VirtualRelay>();
 
 		heartbeatCount = 0;
 
 	}
-	
+
 	private void setup(Scene scene) {
 		fillVSHandler(scene);
-		InitializeLEDs();
+		fillLEDHandler(scene);
+		// InitializeLEDs();
 		initializeConditionMap();
 		initializeVirtualRelays();
 
 	}
-	
+
 	private void fillVSHandler(Scene scene) {
 		if(scene == null) {
 			System.out.println("Null Scene!");
 			return;
 		}
-		
+
 		Node vbox = scene.lookup("#ValveEnable_S2_VBox");
 		Node tnode = scene.lookup("#ValveEnable_S2_True");
 		Node fnode = scene.lookup("#ValveEnable_S2_False");
-		
+
 		vsHandler.addVirtualSwitch("ValveEnable_S2", vbox, tnode, fnode, null);
 		vsHandler.addVirtualSwitch("TurboNLK_m_S3", scene.lookup("#TurboNLK_m_S3_VBox"), scene.lookup("#TurboNLK_m_S3_True"), scene.lookup("#TurboNLK_m_S3_False"), null);
 		vsHandler.addVirtualSwitch("BLV_AutoClose_S7", scene.lookup("#BLV_AutoClose_S7_VBox"), scene.lookup("#BLV_AutoClose_S7_True"), scene.lookup("#BLV_AutoClose_S7_False"), null);
@@ -148,6 +151,17 @@ public class VirtualBoardController implements Initializable {
 		vsHandler.addVirtualSwitch("VentLockChamber_m_S12", scene.lookup("#VentLockChamber_m_S12_VBox"), scene.lookup("#VentLockChamber_m_S12_True"), scene.lookup("#VentLockChamber_m_S12_False"), scene.lookup("#VentLockChamber_m_S12_Off"));
 		vsHandler.addVirtualSwitch("VentLock_m_S11", scene.lookup("#VentLock_m_S11_VBox"), scene.lookup("#VentLock_m_S11_True"), scene.lookup("#VentLock_m_S11_False"), scene.lookup("#VentLock_m_S11_Off"));
 		vsHandler.addVirtualSwitch("PumpLockChamber_m_S14", scene.lookup("#PumpLockChamber_m_S14_VBox"), scene.lookup("#PumpLockChamber_m_S14_True"), scene.lookup("#PumpLockChamber_m_S14_False"), null);
+	}
+
+	private void fillLEDHandler(Scene scene) {
+		if(scene == null) {
+			System.out.println("Null Scene!");
+			return;
+		}
+
+		// TODO: I think having the 2cond as "" should work fine, I have "" mapped to null in the conditionMap, but I'm not sure
+		ledHandler.addLED("Test24V_LED1", Color.GREEN, null, Color.GRAY, "Test24V_Denkovi0_14", "", true, scene.lookup("#Test24V_LED1_LED"));
+		ledHandler.addLED("ValveEnable_LED2", Color.YELLOW, null, Color.GRAY, "ValveEnable_VR1", true, scene.lookup("#ValveEnable_LED2_LED"))
 	}
 
 	/**
@@ -324,26 +338,6 @@ public class VirtualBoardController implements Initializable {
 		leds.put(VentLockCham_LED18, VentLockCham_LED18_LED);
 		leds.put(VentLock_LED19, VentLock_LED19_LED);
 		leds.put(LockChamPumping_LED20, LockChamPumping_LED20_LED);
-
-		// // Add LEDS to leds Array
-		// ledList.add(Test24V_LED1);
-		// ledList.add(ValveEnable_LED2);
-		// ledList.add(Interlock_LED3);
-		// ledList.add(BLValve_LED5);
-		// ledList.add(ChamHighVac_LED6);
-		// ledList.add(TC2_LED7);
-		// ledList.add(PumpValve_LED8);
-		// ledList.add(TurboON_LED9);
-		// ledList.add(LockAtm_LED10);
-		// ledList.add(TC3_LED11);
-		// ledList.add(TC1_LED14);
-		// ledList.add(TurboRoughValve_LED15);
-		// ledList.add(VentValve_LED16);
-		// ledList.add(LockRoughValve_LED17);
-		// ledList.add(VentLockCham_LED18);
-		// ledList.add(VentLock_LED19);
-		// ledList.add(LockChamPumping_LED20);
-
 	}
 
 	// ---------Button Methods----------------------
@@ -522,34 +516,10 @@ public class VirtualBoardController implements Initializable {
 	 */
 	private void updateLEDs() {
 		System.out.println("Updating LEDS");
-		for (LED led : leds.keySet()) {
-			// LED led = ledList.get(3);
-			if (led != null) {
-				// check cond1
-				if (conditionMap.get(led.getCond1()) == true) {
-					led.setCurrentColor(led.getCond1Color());
-					System.out.println("Color 1!");
-					// else check cond2
-				} else if (led.getCond2Color() != null) {
-					if (conditionMap.get(led.getCond2()) == true) {
-						led.setCurrentColor(led.getCond2Color());
-						System.out.println("Color 2!");
-						// else check else
-					} else if (led.hasElseClause() == true) {
-						led.setCurrentColor(led.getElseColor());
-						System.out.println("Color ELSE!");
-						// finally panic()
-					} else {
-						System.out.println("WE HAVE A WEIRD COLOR???");
-					}
-				}
-				Rectangle vled = leds.get(led);
-				if (vled != null) {
-					vled.setFill(led.getCurrentColor());
-				}
-			}
-		}
+		ledHandler.update(conditionMap);
 
+    // Testing statement to check proof of concept for changing LEDS
+		// TODO: Delete this when LED changes are available.
 		if (ValveEnable_VR1.getStatus() == true) {
 			ValveEnable_LED2.setCurrentColor(ValveEnable_LED2.getCond1Color());
 		} else {

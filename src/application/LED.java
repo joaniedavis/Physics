@@ -103,6 +103,6 @@ public class LED {
 			setCurrentColor(Color.purple);
 			System.out.println("WE HAVE A WEIRD COLOR???");
 		}
-		gui_Rect.setFill(currentColor);
+		gui_Rect.setFill(currentColor);git
 	}
 }
