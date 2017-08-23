@@ -92,13 +92,12 @@ public class VirtualBoardController implements Initializable {
 	/**
 	 * This method initializes the collections that will be used throughout the
 	 * processes of the applciation.
-	 * 
+	 *
 	 * vboxes is a HashMap linking String names to VBox objects from the view.
 	 * It is used in relation to the virtual switches. leds is a HashMap that
 	 * maps an LED object to a Rectangle from the view ledList is an arrayList
-	 * of LED objects TODO: clean up implementation of the leds, there shouldn't
-	 * be any reason for them to be in multiple collections.
-	 * 
+	 * of LED objects
+	 *
 	 */
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
