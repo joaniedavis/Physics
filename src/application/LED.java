@@ -37,14 +37,14 @@ public class LED {
 	// A string used as a key to retrieve the value of the second condition
 	private String cond2;
 
-	// A boolean indicating if there's a third state the LED can have if the other two conditions are not met
-	private boolean elseClause;
+	// A boolean indicating if there is a second condition that should be checked before defaulting to the else clause
+	private boolean has2Clause;
 
 	// The corresponding part of the GUI that will have its color changed based on the conditions
 	private Rectangle gui_Rect;
 
 
-	public LED(String label, Color cond1Color, Color cond2Color, Color elseColor, String cond1, String cond2, boolean elseClause, Rectangle gui_Rect) {
+	public LED(String label, Color cond1Color, Color cond2Color, Color elseColor, String cond1, String cond2, boolean has2Clause, Rectangle gui_Rect) {
 		this.label = label;
 		this.cond1Color = cond1Color;
 		this.cond2Color = cond2Color;
@@ -52,7 +52,7 @@ public class LED {
 		this.currentColor = Color.green;
 		this.cond1 = cond1;
 		this.cond2 = cond2;
-		this.elseClause = elseClause;
+		this.has2Clause = has2Clause;
 		this.gui_Rect = gui_Rect;
 	}
 
@@ -95,13 +95,10 @@ public class LED {
 	public void update(boolean cond1, boolean cond2) {
 		if(cond1) {
 			setCurrentColor(cond1Color);
-		} else if (cond2) {
+		} else if (cond2 && has2Clause) {
 			setCurrentColor(cond2Color);
-		} else if (hasElseClause){
-			setCurrentColor(elseColor);
 		} else {
-			setCurrentColor(Color.purple);
-			System.out.println("WE HAVE A WEIRD COLOR???");
+			setCurrentColor(elseColor);
 		}
 		gui_Rect.setFill(currentColor);git
 	}

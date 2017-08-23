@@ -160,8 +160,17 @@ public class VirtualBoardController implements Initializable {
 		}
 
 		// TODO: I think having the 2cond as "" should work fine, I have "" mapped to null in the conditionMap, but I'm not sure
-		ledHandler.addLED("Test24V_LED1", Color.GREEN, null, Color.GRAY, "Test24V_Denkovi0_14", "", true, scene.lookup("#Test24V_LED1_LED"));
-		ledHandler.addLED("ValveEnable_LED2", Color.YELLOW, null, Color.GRAY, "ValveEnable_VR1", true, scene.lookup("#ValveEnable_LED2_LED"))
+		ledHandler.addLED("Test24V_LED1", Color.GREEN, null, Color.GRAY, "Test24V_Denkovi0_14", "", false, scene.lookup("#Test24V_LED1_LED"));
+		ledHandler.addLED("ValveEnable_LED2", Color.YELLOW, null, Color.GRAY, "ValveEnable_VR1", "", false, scene.lookup("#ValveEnable_LED2_LED"));
+		ledHandler.addLED("Interlock_LED3", Color.RED, null, COLOR.GRAY, "TurboNLK_VR104", "", false, scene.lookup("#Interlock_LED3_LED"));
+		ledHandler.addLED("BLValve_LED5", Color.GREEN, Color.RED, Color.GRAY, "BLV_open_J1_0", "BLV_closed_J1_1", true, scene.lookup("#BLValve_LED5_LED"));
+		ledHandler.addLED("ChamHighVac_LED6", Color.GREEN, null, Color.RED, "IGltSP_VR103", "", false, scene.lookup("#ChamHighVac_LED6_LED"));
+		ledHandler.addLED("TC2_LED7", Color.green, null, Color.RED, "TC2ltSP_VR203", "", false, scene.lookup("#TC2_LED7_LED"));
+		ledHandler.addLED("PumpValve_LED8", Color.GREEN, Color.RED, Color.GRAY, "PV_open_J2_2", "PV_closed_J2_3", true, scene.lookup("#PumpValve_LED8_LED"));
+		ledHandler.addLED("TurboON_LED9", Color.YELLOW, null, Color.GRAY, "TurboatSpeed_VR202", "", false, scene.lookup("#TurboON_LED9_LED"));
+		ledHandler.addLED("LockAtm_LED10", Color.YELLOW, null, Color.GRAY, "!TC3ltSP2_VR102", "", false, scene.lookup("#LockAtm_LED10_LED"));
+		ledHandler.addLED("TC3_LED11", Color.GREEN, null, Color.RED, "TC3ltSP1_VR301", "", false, scene.lookup("#TC3_LED11_LED"));
+		ledHandler.addLED("LockValve_LED12", Color.GREEN, Color.RED, Color.GRAY, "LVopen_VR501", "LVclosed_VR502", true, scene.lookup("#LockValve_LED12_LED"));
 	}
 
 	/**
