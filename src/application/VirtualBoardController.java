@@ -70,8 +70,11 @@ public class VirtualBoardController implements Initializable {
 	//private HashMap<String, Pane> vboxes;
 	private VirtualSwitchHandler vsHandler;
 	private LEDHandler ledHandler;
-	private HashMap<String, Boolean> conditionMap;
-	private ArrayList<VirtualRelay> virtualRelays;
+	private HashMap<String, Boolean> virtualRelays;
+	private HashMap<String, Boolean> realRelays;
+	private HashMap<String, Boolean> momentarySwitches;
+	private HashMap<String, Boolean> allRelays;
+//	private ArrayList<VirtualRelay> virtualRelays;
 
 	// Single VirtualRelay declared for testing purposes.
 	private VirtualRelay ValveEnable_VR1;
@@ -114,8 +117,11 @@ public class VirtualBoardController implements Initializable {
 		vsHandler = new VirtualSwitchHandler();
 		ledHandler = new LEDHandler();
 		// leds = new HashMap<LED, Rectangle>();
-		conditionMap = new HashMap<String, Boolean>();
-		virtualRelays = new ArrayList<VirtualRelay>();
+		virtualRelays = new HashMap<String, Boolean>();
+		realRelays = new HashMap<String, Boolean>();
+		momentarySwitches = new HashMap<String, Boolean>();
+		allRelays = new HashMap<String, Boolean>();
+//		virtualRelays = new ArrayList<VirtualRelay>();
 
 		heartbeatCount = 0;
 
@@ -124,10 +130,10 @@ public class VirtualBoardController implements Initializable {
 	private void setup(Scene scene) {
 		fillVSHandler(scene);
 		fillLEDHandler(scene);
-		// InitializeLEDs();
-		initializeConditionMap();
 		initializeVirtualRelays();
-
+		initializeRealRelays();
+		initializeMomentarySwitches();
+		updateAllRelays();
 	}
 
 	private void fillVSHandler(Scene scene) {
@@ -160,7 +166,7 @@ public class VirtualBoardController implements Initializable {
 		}
 
 		// TODO: I think having the 2cond as "" should work fine, I have "" mapped to null in the conditionMap, but I'm not sure
-		ledHandler.addLED("Test24V_LED1", Color.GREEN, null, Color.GRAY, "Test24V_Denkovi0_14", "", false, (Rectangle) scene.lookup("#Test24V_LED1_LED"));
+		ledHandler.addLED("Test24V_LED1", Color.GREEN, null, Color.GRAY, "Test24V_DENKOVI0_14", "", false, (Rectangle) scene.lookup("#Test24V_LED1_LED"));
 		ledHandler.addLED("ValveEnable_LED2", Color.YELLOW, null, Color.GRAY, "ValveEnable_VR1", "", false, (Rectangle) scene.lookup("#ValveEnable_LED2_LED"));
 		ledHandler.addLED("Interlock_LED3", Color.RED, null, Color.GRAY, "TurboNLK_VR104", "", false, (Rectangle) scene.lookup("#Interlock_LED3_LED"));
 		ledHandler.addLED("BLValve_LED5", Color.GREEN, Color.RED, Color.GRAY, "BLV_open_J1_0", "BLV_closed_J1_1", true, (Rectangle) scene.lookup("#BLValve_LED5_LED"));
@@ -176,121 +182,98 @@ public class VirtualBoardController implements Initializable {
 		ledHandler.addLED("TurboRoughValve_LED15", Color.GREEN, Color.RED, Color.GRAY, "TurboRoughopen_VR601", "TurboRoughclosed_VR602", true, (Rectangle) scene.lookup("#TurboRoughValve_LED15_LED"));
 		ledHandler.addLED("VentValve_LED16", Color.GREEN, null, Color.RED, "LOGIC_VentValveopen_VR303", "", false, (Rectangle) scene.lookup("#VentValve_LED16_LED"));
 		ledHandler.addLED("LockRoughValve_LED17", Color.GREEN, Color.RED, Color.GRAY, "LockRoughopen_VR503", "LockRoughclosed_VR504", true, (Rectangle) scene.lookup("#LockRoughValve_LED17_LED"));
-		ledHandler.addLED("VentLockCham_LED18", Color.YELLOW, null, Color.GRAY, "VendLockCham_m_S12", "", false, (Rectangle) scene.lookup("#VentLockCham_LED18_LED"));
+		ledHandler.addLED("VentLockCham_LED18", Color.YELLOW, null, Color.GRAY, "VentLockChamber_m_S12", "", false, (Rectangle) scene.lookup("#VentLockCham_LED18_LED"));
 		ledHandler.addLED("VentLock_LED19", Color.YELLOW, null, Color.GRAY, "VentLock_m_S13", "", false, (Rectangle) scene.lookup("#VentLock_LED19_LED"));
 		ledHandler.addLED("LockChamPumping_LED20", Color.YELLOW, null, Color.GRAY, "PumpLockChamber_m_S14", "", false, (Rectangle) scene.lookup("#LockChamPumping_LED20_LED"));
-		ledHandler.addLED("24V_present_LED21", Color.GREEN, null, Color.RED, "Test24V_DENKOVI0_19", "", false, (Rectangle) scene.lookup("#24V_present_LED21"));
+		ledHandler.addLED("24V_present_LED21", Color.GREEN, null, Color.RED, "Test24V_DENKOVI0_19", "", false, (Rectangle) scene.lookup("#24V_present_LED21_LED"));
 		
 	}
 
-	/**
-	 * This method creates the ConditionMap, giving each condition a default
-	 * value
-	 */
-	private void initializeConditionMap() {
-		conditionMap.put("Test24V_Denkovi0_19", false);
-
-		conditionMap.put("ValveEnable_VR1", false);
-
-		conditionMap.put("TurboNLK_VR104", false);
-
-		conditionMap.put("BLV_open_J1_0", true);
-		conditionMap.put("BLV_closed_J1_1", false);
-
-		conditionMap.put("IGltSP_VR103", true);
-		conditionMap.put("!IGltSP_VR103", false);
-
-		conditionMap.put("TC2ltSP_VR203", true);
-		conditionMap.put("!TC2ltSP_VR203", false);
-
-		conditionMap.put("PV_open_J2_2", true);
-		conditionMap.put("PV_closed_J2_3", false);
-
-		conditionMap.put("TurboatSpeed_VR202", true);
-
-		conditionMap.put("!TC3ltSP2_VR102", true);
-
-		conditionMap.put("TC3ltSP1_VR301", true);
-		conditionMap.put("!TC3ltSP1_VR301", false);
-
-		conditionMap.put("LVopen_VR501", true);
-		conditionMap.put("LVclosed_VR502", false);
-
-		conditionMap.put("TC1ltSP_VR201", true);
-		conditionMap.put("!TC1ltSP_VR201", false);
-
-		conditionMap.put("TurboRoughopen_VR601", true);
-		conditionMap.put("TurboRoughclosed_VR602", false);
-
-		conditionMap.put("LOGIC_VentValveopen_VR303", true);
-		conditionMap.put("!LOGIC_VentValveopen_VR303", false);
-
-		conditionMap.put("LockRoughopen_VR503", true);
-		conditionMap.put("LockRoughcloses_VR504", false);
-
-		conditionMap.put("VendLockCham_m_S12", false);
-
-		conditionMap.put("VentLock_m_S13", false);
-
-		conditionMap.put("PumpLockChamber_m_S14", true);
-		conditionMap.put("", null);
-
-	}
 
 	/**
-	 * This method creates the ConditionMap, giving each condition a default
+	 * This method creates the HashMap of the virtualRelays, giving each condition a default
 	 * value
 	 */
 	private void initializeVirtualRelays() {
-		VirtualRelay Test24V_Denkovi0_19 = new VirtualRelay("Test24V_Denkovi0_19", false);
-
-		ValveEnable_VR1 = new VirtualRelay("ValveEnable_VR1", false);
-
-		VirtualRelay TurboNLK_VR104 = new VirtualRelay("TurboNLK_VR104", false);
-
-		// conditionMap.put("BLV_open_J1_0", true);
-		// conditionMap.put("BLV_closed_J1_1", false);
-		//
-		// conditionMap.put("IGltSP_VR103", true);
-		// conditionMap.put("!IGltSP_VR103", false);
-		//
-		// conditionMap.put("TC2ltSP_VR203", true);
-		// conditionMap.put("!TC2ltSP_VR203", false);
-		//
-		// conditionMap.put("PV_open_J2_2", true);
-		// conditionMap.put("PV_closed_J2_3", false);
-		//
-		// conditionMap.put("TurboatSpeed_VR202", true);
-		//
-		// conditionMap.put("!TC3ltSP2_VR102", true);
-		//
-		// conditionMap.put("TC3ltSP1_VR301", true);
-		// conditionMap.put("!TC3ltSP1_VR301", false);
-		//
-		// conditionMap.put("LVopen_VR501", true);
-		// conditionMap.put("LVclosed_VR502", false);
-		//
-		// conditionMap.put("TC1ltSP_VR201", true);
-		// conditionMap.put("!TC1ltSP_VR201", false);
-		//
-		// conditionMap.put("TurboRoughopen_VR601", true);
-		// conditionMap.put("TurboRoughclosed_VR602", false);
-		//
-		// conditionMap.put("LOGIC_VentValveopen_VR303", true);
-		// conditionMap.put("!LOGIC_VentValveopen_VR303", false);
-		//
-		// conditionMap.put("LockRoughopen_VR503", true);
-		// conditionMap.put("LockRoughcloses_VR504", false);
-		//
-		// conditionMap.put("VendLockCham_m_S12", false);
-		//
-		// conditionMap.put("VentLock_m_S13", false);
-		//
-		// conditionMap.put("PumpLockChamber_m_S14", true);
-		// conditionMap.put("", null);
-
+		virtualRelays.put("E", true);
+		virtualRelays.put("ValveEnable_VR1", true);
+		virtualRelays.put("TC3ltSP2_VR102", true);
+		virtualRelays.put("IGltSP_VR103", true);
+		virtualRelays.put("TurboNLK_VR104", true);
+		virtualRelays.put("TC1ltSP_VR201", true);
+		virtualRelays.put("TurboatSpeed_VR202", true);
+		virtualRelays.put("TC2ltSP_VR203", true);
+		virtualRelays.put("LOGIC_LockRough_VR204", true);
+		virtualRelays.put("TC3ltSP1_VR301", true);
+		virtualRelays.put("LOGIC_RV1_VR302", true);
+		virtualRelays.put("LOGIC_VentValveopen_VR303", true);
+		virtualRelays.put("LOGIC_VentValveopen_VR304", true);
+		virtualRelays.put("IC_CloseBLV_VR401", true);
+		virtualRelays.put("BLVclosed_VR402", true);
+		virtualRelays.put("LOGIC_Close_PV_VR403", true);
+		virtualRelays.put("PV_closed_VR404", true);
+		virtualRelays.put("LVopen_VR501", true);
+		virtualRelays.put("LVclosed_VR502", true);
+		virtualRelays.put("LockRoughopen_VR503", true);
+		virtualRelays.put("LockRoughclosed_VR504", true);
+		virtualRelays.put("TurboRoughopen_VR601", true);
+		virtualRelays.put("TurboRoughclosed_VR602", true);
+		virtualRelays.put("!TC3ltSP2_VR102", !virtualRelays.get("TC3ltSP2_VR102"));
+	}
+	
+	/**
+	 * This method creates the HashMap of the realRelays, giving each condition a default
+	 * value
+	 */
+	private void initializeRealRelays() {
+		realRelays.put("VV_closed_J6_10", true);
+		realRelays.put("Lockswitch_on_J8_11", true);
+		realRelays.put("TC3_lt_SP1_true_J9_12", true);
+		realRelays.put("TC3_lt_sp2_true_J9_13", true);
+		
+		realRelays.put("Test24V_DENKOVI0_14", true);
+		realRelays.put("Test24V_DENKOVI0_19", true);
+		
+		realRelays.put("TC1_sp_true_J10_15", true);
+		realRelays.put("TC2_sp_true_J10_16", true);
+		realRelays.put("IGltSP_true_J11_17", true);
+		realRelays.put("BLltSP_true_J12_18", true);
+		realRelays.put("TurboatSpeed_J13_19", true);
+		realRelays.put("BLV_open_J1_0", true);
+		realRelays.put("BLV_closed_J1_1", true);
+		realRelays.put("PV_open_J2_2", true);
+		realRelays.put("PV_closed_J2_3", true);
+		realRelays.put("LV_open_J3_4", true);
+		realRelays.put("LV_closed_J3_5", true);
+		realRelays.put("RVturbo_open_J4_6", true);
+		realRelays.put("RVturbo_closed_J4_7", true);
+		realRelays.put("RVlock_open_J5_8", true);
+		realRelays.put("RVlock_closed_J5_9", true);
+	}
+	
+	/**
+	 * This method creates the HashMap of the momentarySwitches
+	 */
+	private void initializeMomentarySwitches() {
+		momentarySwitches.put("PumpLockChamber_m_S14", true);
+		momentarySwitches.put("TurboNLK_m_S3", true);
+		momentarySwitches.put("VentLockChamber_m_S12", true); // True == "on" ? TODO;
+		momentarySwitches.put("VentLock_m_S13", true); // True == "on" ? TODO;
+		
 	}
 
+	
+	/**
+	 * This method updates the allRelays HashMap to contain the current values of both the real and virtual Relays
+	 */
+	
+	private void updateAllRelays() {
+		allRelays.clear();
+		allRelays.putAll(virtualRelays);
+		allRelays.putAll(realRelays);
+		allRelays.putAll(momentarySwitches);
+		allRelays.put("", null);
+	}
 	/**
 	 * This method initializes the leds HashMap
 	 */
@@ -535,7 +518,7 @@ public class VirtualBoardController implements Initializable {
 	 */
 	private void updateLEDs() {
 		System.out.println("Updating LEDS");
-		ledHandler.updateLEDs(conditionMap);
+		ledHandler.updateLEDs(allRelays);
 
     // Testing statement to check proof of concept for changing LEDS
 		// TODO: Delete this when LED changes are available.

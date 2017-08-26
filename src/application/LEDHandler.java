@@ -21,8 +21,12 @@ public class LEDHandler {
   public void updateLEDs(HashMap<String, Boolean> virtualRelays) {
     for(LED led: leds) {
       boolean cond1 = virtualRelays.get(led.getCond1());
-      boolean cond2 = virtualRelays.get(led.getCond2());
-      led.update(cond1, cond2);
+      if(led.has2clause()) {
+    	  boolean cond2 = virtualRelays.get(led.getCond2());
+          led.update(cond1, cond2);
+      } else {
+    	  led.update(cond1, false);
+      }
     }
 
   }

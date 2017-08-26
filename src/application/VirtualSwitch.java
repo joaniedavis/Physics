@@ -33,6 +33,8 @@ public class VirtualSwitch {
 		this.trueButton = trueButton;
 		this.falseButton = falseButton;
 		this.offButton = offButton;
+		// Default to true
+		this.state = SwitchState.TRUE;
 	}
 	
 	// Takes in a Button and updates the Buttons and Switch accordingly
