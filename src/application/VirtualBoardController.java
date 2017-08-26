@@ -160,17 +160,27 @@ public class VirtualBoardController implements Initializable {
 		}
 
 		// TODO: I think having the 2cond as "" should work fine, I have "" mapped to null in the conditionMap, but I'm not sure
-		ledHandler.addLED("Test24V_LED1", Color.GREEN, null, Color.GRAY, "Test24V_Denkovi0_14", "", false, scene.lookup("#Test24V_LED1_LED"));
-		ledHandler.addLED("ValveEnable_LED2", Color.YELLOW, null, Color.GRAY, "ValveEnable_VR1", "", false, scene.lookup("#ValveEnable_LED2_LED"));
-		ledHandler.addLED("Interlock_LED3", Color.RED, null, COLOR.GRAY, "TurboNLK_VR104", "", false, scene.lookup("#Interlock_LED3_LED"));
-		ledHandler.addLED("BLValve_LED5", Color.GREEN, Color.RED, Color.GRAY, "BLV_open_J1_0", "BLV_closed_J1_1", true, scene.lookup("#BLValve_LED5_LED"));
-		ledHandler.addLED("ChamHighVac_LED6", Color.GREEN, null, Color.RED, "IGltSP_VR103", "", false, scene.lookup("#ChamHighVac_LED6_LED"));
-		ledHandler.addLED("TC2_LED7", Color.green, null, Color.RED, "TC2ltSP_VR203", "", false, scene.lookup("#TC2_LED7_LED"));
-		ledHandler.addLED("PumpValve_LED8", Color.GREEN, Color.RED, Color.GRAY, "PV_open_J2_2", "PV_closed_J2_3", true, scene.lookup("#PumpValve_LED8_LED"));
-		ledHandler.addLED("TurboON_LED9", Color.YELLOW, null, Color.GRAY, "TurboatSpeed_VR202", "", false, scene.lookup("#TurboON_LED9_LED"));
-		ledHandler.addLED("LockAtm_LED10", Color.YELLOW, null, Color.GRAY, "!TC3ltSP2_VR102", "", false, scene.lookup("#LockAtm_LED10_LED"));
-		ledHandler.addLED("TC3_LED11", Color.GREEN, null, Color.RED, "TC3ltSP1_VR301", "", false, scene.lookup("#TC3_LED11_LED"));
-		ledHandler.addLED("LockValve_LED12", Color.GREEN, Color.RED, Color.GRAY, "LVopen_VR501", "LVclosed_VR502", true, scene.lookup("#LockValve_LED12_LED"));
+		ledHandler.addLED("Test24V_LED1", Color.GREEN, null, Color.GRAY, "Test24V_Denkovi0_14", "", false, (Rectangle) scene.lookup("#Test24V_LED1_LED"));
+		ledHandler.addLED("ValveEnable_LED2", Color.YELLOW, null, Color.GRAY, "ValveEnable_VR1", "", false, (Rectangle) scene.lookup("#ValveEnable_LED2_LED"));
+		ledHandler.addLED("Interlock_LED3", Color.RED, null, Color.GRAY, "TurboNLK_VR104", "", false, (Rectangle) scene.lookup("#Interlock_LED3_LED"));
+		ledHandler.addLED("BLValve_LED5", Color.GREEN, Color.RED, Color.GRAY, "BLV_open_J1_0", "BLV_closed_J1_1", true, (Rectangle) scene.lookup("#BLValve_LED5_LED"));
+		ledHandler.addLED("ChamHighVac_LED6", Color.GREEN, null, Color.RED, "IGltSP_VR103", "", false, (Rectangle) scene.lookup("#ChamHighVac_LED6_LED"));
+		ledHandler.addLED("TC2_LED7", Color.GREEN, null, Color.RED, "TC2ltSP_VR203", "", false, (Rectangle) scene.lookup("#TC2_LED7_LED"));
+		ledHandler.addLED("PumpValve_LED8", Color.GREEN, Color.RED, Color.GRAY, "PV_open_J2_2", "PV_closed_J2_3", true, (Rectangle) scene.lookup("#PumpValve_LED8_LED"));
+		ledHandler.addLED("TurboON_LED9", Color.YELLOW, null, Color.GRAY, "TurboatSpeed_VR202", "", false, (Rectangle) scene.lookup("#TurboON_LED9_LED"));
+		ledHandler.addLED("LockAtm_LED10", Color.YELLOW, null, Color.GRAY, "!TC3ltSP2_VR102", "", false, (Rectangle) scene.lookup("#LockAtm_LED10_LED"));
+		ledHandler.addLED("TC3_LED11", Color.GREEN, null, Color.RED, "TC3ltSP1_VR301", "", false, (Rectangle) scene.lookup("#TC3_LED11_LED"));
+		ledHandler.addLED("LockValve_LED12", Color.GREEN, Color.RED, Color.GRAY, "LVopen_VR501", "LVclosed_VR502", true, (Rectangle) scene.lookup("#LockValve_LED12_LED"));
+		
+		ledHandler.addLED("TC1_LED14", Color.GREEN, null, Color.RED, "TC1ltSP_VR201", "", false, (Rectangle) scene.lookup("#TC1_LED14_LED"));
+		ledHandler.addLED("TurboRoughValve_LED15", Color.GREEN, Color.RED, Color.GRAY, "TurboRoughopen_VR601", "TurboRoughclosed_VR602", true, (Rectangle) scene.lookup("#TurboRoughValve_LED15_LED"));
+		ledHandler.addLED("VentValve_LED16", Color.GREEN, null, Color.RED, "LOGIC_VentValveopen_VR303", "", false, (Rectangle) scene.lookup("#VentValve_LED16_LED"));
+		ledHandler.addLED("LockRoughValve_LED17", Color.GREEN, Color.RED, Color.GRAY, "LockRoughopen_VR503", "LockRoughclosed_VR504", true, (Rectangle) scene.lookup("#LockRoughValve_LED17_LED"));
+		ledHandler.addLED("VentLockCham_LED18", Color.YELLOW, null, Color.GRAY, "VendLockCham_m_S12", "", false, (Rectangle) scene.lookup("#VentLockCham_LED18_LED"));
+		ledHandler.addLED("VentLock_LED19", Color.YELLOW, null, Color.GRAY, "VentLock_m_S13", "", false, (Rectangle) scene.lookup("#VentLock_LED19_LED"));
+		ledHandler.addLED("LockChamPumping_LED20", Color.YELLOW, null, Color.GRAY, "PumpLockChamber_m_S14", "", false, (Rectangle) scene.lookup("#LockChamPumping_LED20_LED"));
+		ledHandler.addLED("24V_present_LED21", Color.GREEN, null, Color.RED, "Test24V_DENKOVI0_19", "", false, (Rectangle) scene.lookup("#24V_present_LED21"));
+		
 	}
 
 	/**
@@ -295,58 +305,58 @@ public class VirtualBoardController implements Initializable {
 		// clause instead of 2
 		// TODO-2: we'll probably need to make some if/else check to make sure
 		// cond2 isn't "", that should work
-		LED Test24V_LED1 = new LED("24V on", Color.GREEN, null, Color.GRAY, "Test24V_Denkovi0_19", "", true);
-		ValveEnable_LED2 = new LED("Valves Enabled", Color.YELLOW, null, Color.GRAY, "ValveEnable_VR1", "", true);
-		LED Interlock_LED3 = new LED("Bypass", Color.RED, null, Color.GRAY, "TurboNLK_VR104", "", true);
-		LED BLValve_LED5 = new LED("Beam Line Valve", Color.GREEN, Color.RED, Color.GRAY, "BLV_open_J1_0",
-				"BLV_closed_J1_1", true);
-		LED ChamHighVac_LED6 = new LED("Chamber at High Vacuum", Color.GREEN, Color.RED, null, "IGltSP_VR103",
-				"!IGltSP_VR103", false);
-		LED TC2_LED7 = new LED("Chamber at Rough Vacuum", Color.GREEN, Color.RED, null, "TC2ltSP_VR203",
-				"!TC2ltSP_VR203", false);
-		LED PumpValve_LED8 = new LED("Pump Valve", Color.GREEN, Color.RED, Color.GRAY, "PV_open_J2_2", "PV_closed_J2_3",
-				true);
-		LED TurboON_LED9 = new LED("Turbo at Speed", Color.YELLOW, null, Color.GRAY, "TurboatSpeed_VR202", "", true);
-		LED LockAtm_LED10 = new LED("Lock Vented", Color.YELLOW, null, Color.GRAY, "!TC3ltSP2_VR102", "", true);
-		LED TC3_LED11 = new LED("Lock at Vacuum", Color.GREEN, Color.RED, null, "TC3ltSP1_VR301", "!TC3ltSP1_VR301",
-				false);
-		LED LockValve_LED12 = new LED("Lock Valve", Color.GREEN, Color.RED, Color.GRAY, "LVopen_VR501",
-				"LVclosed_VR502", true);
-		LED TC1_LED14 = new LED("Turbo Backing", Color.GREEN, Color.RED, null, "TC1ltSP_VR201", "!TC1ltSP_VR201",
-				false);
-		// TODO: Color for fault? Currently it's black
-		LED TurboRoughValve_LED15 = new LED("Turbo Rough Valve", Color.GREEN, Color.RED, Color.BLACK,
-				"TurboRoughopen_VR601", "TurboRoughclosed_VR602", true);
-		LED VentValve_LED16 = new LED("Vent Valve", Color.GREEN, Color.RED, null, "LOGIC_VentValveopen_VR303",
-				"!LOGIC_VentValveopen_VR303", false);
-		// TODO-2 also fault state is black here
-		LED LockRoughValve_LED17 = new LED("Lock Rough Valve", Color.GREEN, Color.RED, Color.BLACK,
-				"LockRoughopen_VR503", "LockRoughcloses_VR504", true);
-		LED VentLockCham_LED18 = new LED("Venting Lock and Chamber", Color.YELLOW, null, Color.GRAY,
-				"VendLockCham_m_S12", "", true);
-		LED VentLock_LED19 = new LED("Venting Lock", Color.YELLOW, null, Color.GRAY, "VentLock_m_S13", "", true);
-		// TODO: Ask DeYoung if this one needs a label
-		LED LockChamPumping_LED20 = new LED("", Color.YELLOW, null, Color.GRAY, "PumpLockChamber_m_S14", "", true);
+//		LED Test24V_LED1 = new LED("24V on", Color.GREEN, null, Color.GRAY, "Test24V_Denkovi0_19", "", true);
+//		ValveEnable_LED2 = new LED("Valves Enabled", Color.YELLOW, null, Color.GRAY, "ValveEnable_VR1", "", true);
+//		LED Interlock_LED3 = new LED("Bypass", Color.RED, null, Color.GRAY, "TurboNLK_VR104", "", true);
+//		LED BLValve_LED5 = new LED("Beam Line Valve", Color.GREEN, Color.RED, Color.GRAY, "BLV_open_J1_0",
+//				"BLV_closed_J1_1", true);
+//		LED ChamHighVac_LED6 = new LED("Chamber at High Vacuum", Color.GREEN, Color.RED, null, "IGltSP_VR103",
+//				"!IGltSP_VR103", false);
+//		LED TC2_LED7 = new LED("Chamber at Rough Vacuum", Color.GREEN, Color.RED, null, "TC2ltSP_VR203",
+//				"!TC2ltSP_VR203", false);
+//		LED PumpValve_LED8 = new LED("Pump Valve", Color.GREEN, Color.RED, Color.GRAY, "PV_open_J2_2", "PV_closed_J2_3",
+//				true);
+//		LED TurboON_LED9 = new LED("Turbo at Speed", Color.YELLOW, null, Color.GRAY, "TurboatSpeed_VR202", "", true);
+//		LED LockAtm_LED10 = new LED("Lock Vented", Color.YELLOW, null, Color.GRAY, "!TC3ltSP2_VR102", "", true);
+//		LED TC3_LED11 = new LED("Lock at Vacuum", Color.GREEN, Color.RED, null, "TC3ltSP1_VR301", "!TC3ltSP1_VR301",
+//				false);
+//		LED LockValve_LED12 = new LED("Lock Valve", Color.GREEN, Color.RED, Color.GRAY, "LVopen_VR501",
+//				"LVclosed_VR502", true);
+//		LED TC1_LED14 = new LED("Turbo Backing", Color.GREEN, Color.RED, null, "TC1ltSP_VR201", "!TC1ltSP_VR201",
+//				false);
+//		// TODO: Color for fault? Currently it's black
+//		LED TurboRoughValve_LED15 = new LED("Turbo Rough Valve", Color.GREEN, Color.RED, Color.BLACK,
+//				"TurboRoughopen_VR601", "TurboRoughclosed_VR602", true);
+//		LED VentValve_LED16 = new LED("Vent Valve", Color.GREEN, Color.RED, null, "LOGIC_VentValveopen_VR303",
+//				"!LOGIC_VentValveopen_VR303", false);
+//		// TODO-2 also fault state is black here
+//		LED LockRoughValve_LED17 = new LED("Lock Rough Valve", Color.GREEN, Color.RED, Color.BLACK,
+//				"LockRoughopen_VR503", "LockRoughcloses_VR504", true);
+//		LED VentLockCham_LED18 = new LED("Venting Lock and Chamber", Color.YELLOW, null, Color.GRAY,
+//				"VendLockCham_m_S12", "", true);
+//		LED VentLock_LED19 = new LED("Venting Lock", Color.YELLOW, null, Color.GRAY, "VentLock_m_S13", "", true);
+//		// TODO: Ask DeYoung if this one needs a label
+//		LED LockChamPumping_LED20 = new LED("", Color.YELLOW, null, Color.GRAY, "PumpLockChamber_m_S14", "", true);
 
 		// Add LEDS to leds Array
 		// leds.add(,Test24V_LED1);
-		leds.put(ValveEnable_LED2, ValveEnable_LED2_LED);
-		leds.put(Interlock_LED3, Interlock_LED3_LED_LED);
-		leds.put(BLValve_LED5, BLValve_LED5_LED);
-		leds.put(ChamHighVac_LED6, ChamHighVac_LED6_LED);
-		leds.put(TC2_LED7, TC2_LED7_LED);
-		leds.put(PumpValve_LED8, PumpValve_LED8_LED);
-		leds.put(TurboON_LED9, TurboON_LED9_LED);
-		leds.put(LockAtm_LED10, LockAtm_LED10_LED);
-		// leds.put(TC3_LED11_LED, TC3_LED11);
-		leds.put(LockValve_LED12, LockValve_LED12_LED);
-		leds.put(TC1_LED14, TC1_LED14_LED);
-		leds.put(TurboRoughValve_LED15, TurboRoughValve_LED15_LED);
-		leds.put(VentValve_LED16, VentValve_LED16_LED);
-		leds.put(LockRoughValve_LED17, LockRoughValve_LED17_LED);
-		leds.put(VentLockCham_LED18, VentLockCham_LED18_LED);
-		leds.put(VentLock_LED19, VentLock_LED19_LED);
-		leds.put(LockChamPumping_LED20, LockChamPumping_LED20_LED);
+//		leds.put(ValveEnable_LED2, ValveEnable_LED2_LED);
+//		leds.put(Interlock_LED3, Interlock_LED3_LED_LED);
+//		leds.put(BLValve_LED5, BLValve_LED5_LED);
+//		leds.put(ChamHighVac_LED6, ChamHighVac_LED6_LED);
+//		leds.put(TC2_LED7, TC2_LED7_LED);
+//		leds.put(PumpValve_LED8, PumpValve_LED8_LED);
+//		leds.put(TurboON_LED9, TurboON_LED9_LED);
+//		leds.put(LockAtm_LED10, LockAtm_LED10_LED);
+//		// leds.put(TC3_LED11_LED, TC3_LED11);
+//		leds.put(LockValve_LED12, LockValve_LED12_LED);
+//		leds.put(TC1_LED14, TC1_LED14_LED);
+//		leds.put(TurboRoughValve_LED15, TurboRoughValve_LED15_LED);
+//		leds.put(VentValve_LED16, VentValve_LED16_LED);
+//		leds.put(LockRoughValve_LED17, LockRoughValve_LED17_LED);
+//		leds.put(VentLockCham_LED18, VentLockCham_LED18_LED);
+//		leds.put(VentLock_LED19, VentLock_LED19_LED);
+//		leds.put(LockChamPumping_LED20, LockChamPumping_LED20_LED);
 	}
 
 	// ---------Button Methods----------------------
@@ -525,7 +535,7 @@ public class VirtualBoardController implements Initializable {
 	 */
 	private void updateLEDs() {
 		System.out.println("Updating LEDS");
-		ledHandler.update(conditionMap);
+		ledHandler.updateLEDs(conditionMap);
 
     // Testing statement to check proof of concept for changing LEDS
 		// TODO: Delete this when LED changes are available.

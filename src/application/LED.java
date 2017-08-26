@@ -49,7 +49,7 @@ public class LED {
 		this.cond1Color = cond1Color;
 		this.cond2Color = cond2Color;
 		this.elseColor = elseColor;
-		this.currentColor = Color.green;
+		this.currentColor = Color.GREEN;
 		this.cond1 = cond1;
 		this.cond2 = cond2;
 		this.has2Clause = has2Clause;
@@ -84,8 +84,8 @@ public class LED {
 		return cond2;
 	}
 
-	public boolean hasElseClause() {
-		return elseClause;
+	public boolean has2clause() {
+		return has2Clause;
 	}
 
 	public void setCurrentColor(Color color) {
@@ -100,6 +100,6 @@ public class LED {
 		} else {
 			setCurrentColor(elseColor);
 		}
-		gui_Rect.setFill(currentColor);git
+		gui_Rect.setFill(currentColor);
 	}
 }
