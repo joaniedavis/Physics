@@ -72,4 +72,16 @@ public class VirtualSwitch {
 	public SwitchState getState() {
 		return state;
 	}
+	
+	public Button getTrueButton() {
+		return trueButton;
+	}
+	
+	public Button getFalseButton() {
+		return falseButton;
+	}
+	
+	public Button getOffButton() {
+		return offButton;
+	}
 }

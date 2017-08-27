@@ -50,7 +50,11 @@ public class VirtualSwitchHandler {
 	 */
 	public void updateVirtualSwitch(Button button) {
 		VirtualSwitch vs = buttonToSwitchMap.get(button);
-		vs.update(button);
+		if (vs != null) {
+			vs.update(button);
+		} else {
+			throw new Error(String.format("Incorrect Button Name, %s, given", button.toString()));
+		}
 	}
 	
 	/**
