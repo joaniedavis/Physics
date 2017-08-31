@@ -37,10 +37,10 @@ public class VirtualBoardController implements Initializable {
 	public Rectangle HeartBeat_LED0_LED;
 	private int heartbeatCount;
 
-	
+
 	@FXML
 	private Rectangle LockRoughValve_LED17_LED;
-	
+
 	//private HashMap<String, Pane> vboxes;
 	private VirtualSwitchHandler vsHandler;
 	private LEDHandler ledHandler;
@@ -96,7 +96,7 @@ public class VirtualBoardController implements Initializable {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		 
+
 		 dRWriter = new DenkoviRelayWriter();
 		 wsRWriter = new WaveShareRelayWriter();
 
@@ -107,8 +107,8 @@ public class VirtualBoardController implements Initializable {
 		realRelays = new HashMap<String, Boolean>();
 		momentarySwitches = new HashMap<String, Boolean>();
 		allRelays = new HashMap<String, Boolean>();
-		
-		
+
+
 
 		heartbeatCount = 0;
 
@@ -139,7 +139,7 @@ public class VirtualBoardController implements Initializable {
 		}
 
 		ledHandler.addLED("LockRoughValve_LED17", Color.GREEN, Color.RED, Color.GRAY, "LockRoughopen_VR503", "LockRoughclosed_VR504", true, (Rectangle) scene.lookup("#LockRoughValve_LED17_LED"));
-		
+
 	}
 
 
@@ -150,8 +150,43 @@ public class VirtualBoardController implements Initializable {
 	private void initializeVirtualRelays() {
 		virtualRelays.put("LockRoughopen_VR503", true);
 		virtualRelays.put("LockRoughclosed_VR504", true);
+
+
+		virtualRelays.put("E", true);
+		virtualRelays.put("LVopen_VR501", true);
+		virtualRelays.put("BLVclosed_VR402", true);
+		virtualRelays.put("PV_closed_VR404", true);
+		virtualRelays.put("ValveEnable_VR1", true);
+		virtualRelays.put("TC3ltSP2_VR102", true);
+		virtualRelays.put("LVclosed_VR502", true);
+		virtualRelays.put("LOGIC_Close_PV_VR403", true);
+		virtualRelays.put("LOGIC_VentValveopen_VR304", true);
+
+
+				virtualRelays.put("ValveEnable_VR1", true);
+				virtualRelays.put("TC3ltSP2_VR102", true);
+				virtualRelays.put("IGltSP_VR103", true);
+				virtualRelays.put("TurboNLK_VR104", true);
+				virtualRelays.put("TC1ltSP_VR201", true);
+				virtualRelays.put("TurboatSpeed_VR202", true);
+				virtualRelays.put("TC2ltSP_VR203", true);
+				virtualRelays.put("LOGIC_LockRough_VR204", true);
+				virtualRelays.put("TC3ltSP1_VR301", true);
+				virtualRelays.put("LOGIC_RV1_VR302", true);
+				virtualRelays.put("LOGIC_VentValveopen_VR303", true);
+				virtualRelays.put("LOGIC_VentValveopen_VR304", true);
+				virtualRelays.put("IC_CloseBLV_VR401", true);
+				virtualRelays.put("BLVclosed_VR402", true);
+				virtualRelays.put("LOGIC_Close_PV_VR403", true);
+				virtualRelays.put("PV_closed_VR404", true);
+				virtualRelays.put("LVopen_VR501", true);
+				virtualRelays.put("LVclosed_VR502", true);
+				virtualRelays.put("TurboRoughopen_VR601", true);
+				virtualRelays.put("TurboRoughclosed_VR602", true);
+				virtualRelays.put("!TC3ltSP2_VR102", !virtualRelays.get("TC3ltSP2_VR102"));
+
 	}
-	
+
 	/**
 	 * This method creates the HashMap of the realRelays, giving each condition a default
 	 * value
@@ -160,19 +195,19 @@ public class VirtualBoardController implements Initializable {
 		realRelays.put("RVlock_open_J5_8", true);
 		realRelays.put("RVlock_closed_J5_9", true);
 	}
-	
+
 	/**
 	 * This method creates the HashMap of the momentarySwitches
 	 */
 	private void initializeMomentarySwitches() {
-		
+
 	}
 
-	
+
 	/**
 	 * This method updates the allRelays HashMap to contain the current values of both the real and virtual Relays
 	 */
-	
+
 	private void updateAllRelays() {
 		allRelays.clear();
 		allRelays.putAll(virtualRelays);
@@ -180,7 +215,7 @@ public class VirtualBoardController implements Initializable {
 		allRelays.putAll(momentarySwitches);
 		allRelays.put("", null);
 	}
-	
+
 
 	// ---------Button Methods----------------------
 
@@ -278,21 +313,21 @@ public class VirtualBoardController implements Initializable {
 	private void readGPIO() {
 		System.out.println("Reading GPIO");
 		int[] pinStatus = gpioReader.getGPIOStatus();
-		
+
 		int RVlock_open_J5_8 = pinStatus[18];
 		if (RVlock_open_J5_8 == 1) {
 			realRelays.put("RVlock_open_J5_8", true);
 		} else {
 			realRelays.put("RVlock_open_J5_8", true);
 		}
-		
+
 		int RVlock_closed_J5_9 = pinStatus[19];
 		if (RVlock_closed_J5_9 == 1) {
 			realRelays.put("RVlock_closed_J5_9", true);
 		} else {
 			realRelays.put("RVlock_closed_J5_9", true);
 		}
-		
+
 	}
 
 	// Helper Jython Functions---------
@@ -321,15 +356,50 @@ public class VirtualBoardController implements Initializable {
 	 * Updates Virtual Relays TODO: Not implemented
 	 */
 	private void updateVirtualRelays() {
-		System.out.print("Updating Virual Relays");
+		System.out.print("Updating Virtual Relays");
+
+		if (RVlock_open_J5_8) {
+			 LockRoughopen_VR503 = true;
+		} else {
+			LockRoughopen_VR503 = false;
+		}
+
+		if (RVlock_closed_J5_9) {
+			LockRoughclosed_VR504 = true;
+		} else {
+			LockRoughclosed_VR504 = false;
+		}
+
+
 	}
 
 	/**
-	 * Reads in values from the Real relays and stores them internally
+	 * Write values to the real relays based on internal values
 	 */
 	// TODO: Is this where the conditions would be updated?
 	private void updateRealRelays() {
 		System.out.println("Updating Real Relays");
+
+		if (((virtualRelays.get("E")
+		& virtualRelays.get("LVOpen_VR501")
+		& virtualRelays.get("BLVClosed_VR402")
+		& virtualRelays.get("PVClosed_VR404")
+		| (virtualRelays.get("ValveEnable_VR1")
+		& (vsHandler.getSwitch("VentValve_AutoClose_S11").getState() == SwitchState.TRUE)
+		& virtualRelays.get("LockRoughclosed_VR504")
+		& virtualRelays.get("TC3ltSP2_VR102")))
+		& (virtualRelays.get("LVclosed_VR502"))
+			& ((vsHandler.getSwitch("VentLock_m_S11").getState() == SwitchState.TRUE)
+			// TODO: I have no idea if this one is correct.  The false state is "Standby" but the outline references "Vent" and "On" but this switch has no on??
+			| ((vsHandler.getSwitch("VentLock_m_S11").getState() == SwitchState.FALSE)
+			& virtualRelays.get("LOGIC_ClosePV_VR403")
+			& virtualRelays.get("LOGIC_VentValveOpen_VR304")))) {
+			//  call code to close RR6 (VVPower_RR6);
+			wsRWriter.setRelay(6, 1);
+		} else {
+			// turn off;
+			wsRWriter.setRelay(6, 0);
+		}
 	}
 
 	/**

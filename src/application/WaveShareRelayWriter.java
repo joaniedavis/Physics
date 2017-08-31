@@ -4,21 +4,25 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 
 public class WaveShareRelayWriter {
-	
-	public static void main(String[] args) {
+
+	public static void setRelay(int relayNum, int on/off) {
 		Runtime rt = Runtime.getRuntime();
-		String[] commands = {"sh","-c","sudo ./Relay2.sh CH9 OFF"};
-	System.out.println("Hello World");
-	
+		String command = "OFF"
+		if (on/off == 1) {
+			command = "ON";
+		}
+		String[] commands = {"sh","-c",String.format("sudo ./Relay2.sh CH%d %s", realyNum, command)};
+	System.out.println(commands);
+
 	Process proc;
 	try {
 		proc = rt.exec(commands);
-	
 
-	BufferedReader stdInput = new BufferedReader(new 
+
+	BufferedReader stdInput = new BufferedReader(new
 	     InputStreamReader(proc.getInputStream()));
 
-	BufferedReader stdError = new BufferedReader(new 
+	BufferedReader stdError = new BufferedReader(new
 	     InputStreamReader(proc.getErrorStream()));
 
 	// read the output from the command
