@@ -7,7 +7,7 @@ public class DenkoviRelayWriter {
 	public static void main(String[] args) {
 		// You have to give the entire path to the .jar file
 		// TODO: See if it's possible to import the .jar and use a local version
-		
+
 		// List command
 		String[] list_commands = {"sh","-c","sudo java -jar /$HOME/denkovi/DenkoviRelayCommandLineTool_27.jar list"};
 		// Read status of the 1st (1 index) of 8 relays
@@ -15,7 +15,7 @@ public class DenkoviRelayWriter {
 		// Set status of the 2nd (1 index) of 8 relays to on (1=on, 0=off)
 		String[] set_commands = {"sh","-c","sudo java -jar /$HOME/denkovi/DenkoviRelayCommandLineTool_27.jar DAE003gt 8 1 1"};
 		Runtime rt = Runtime.getRuntime();
-	
+
 //		Process proc;
 		try {
 			executeCommands(list_commands, rt);
@@ -31,12 +31,12 @@ public class DenkoviRelayWriter {
 			throws IOException {
 		Process proc;
 		proc = rt.exec(commands);
-	
 
-	BufferedReader stdInput = new BufferedReader(new 
+
+	BufferedReader stdInput = new BufferedReader(new
 	     InputStreamReader(proc.getInputStream()));
 
-	BufferedReader stdError = new BufferedReader(new 
+	BufferedReader stdError = new BufferedReader(new
 	     InputStreamReader(proc.getErrorStream()));
 
 	// read the output from the command

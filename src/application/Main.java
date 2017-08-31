@@ -2,7 +2,7 @@ package application;
 
 //TODO:  Any time the fxml file is updated, paste this line in the ~13th line to update the controller location
 //fx:controller="application.VirtualBoardController">
-	
+
 import java.io.IOException;
 
 import javafx.application.Application;
@@ -20,8 +20,8 @@ import javafx.scene.paint.Color;
 public class Main extends Application {
     private Stage primaryStage;
     private BorderPane rootLayout;
-    
-    
+
+
 	@Override
 	public void start(Stage primaryStage) {
         this.primaryStage = primaryStage;
@@ -32,16 +32,16 @@ public class Main extends Application {
 			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 			primaryStage.setScene(scene);
 			primaryStage.show();
-			
+
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public static void main(String[] args) {
 		launch(args);
 	}
-	
+
 	public void initRootLayout() {
         try {
             // Load root layout from fxml file.
@@ -57,6 +57,6 @@ public class Main extends Application {
             e.printStackTrace();
         }
     }
-	
-	
+
+
 }

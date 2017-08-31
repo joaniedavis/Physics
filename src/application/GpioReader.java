@@ -93,7 +93,7 @@ public class GpioReader {
 		PinState state = pin.getState();
 		// Turn off pin 8 whenever the button hasn't been pressed.
 //		for (int i = 0; i < 20; i++) {
-		
+
 		// RVlock_open_J5_8
 			pin = input[18];
 			state = pin.getState();
@@ -102,7 +102,7 @@ public class GpioReader {
 			} else {
 				states[18] = 0;
 			}
-			
+
 			// RVlock_closed_J5_9
 			pin = input[19];
 			state = pin.getState();

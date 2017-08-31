@@ -102,13 +102,13 @@ public class LED {
 		}
 		gui_Rect.setFill(currentColor);
 	}
-	
+
 	 @Override
 	  public boolean equals(Object other) {
 	      if (other == null) return false;
 	      if (other.getClass() == LED.class) {
 	    	  LED otherLED = (LED) other;
-	    	  if(( otherLED.getCond1() == cond1) 
+	    	  if(( otherLED.getCond1() == cond1)
 	    			  && (otherLED.getCond1Color().equals(cond1Color))
 	    			  && (otherLED.getCond2().equals(cond2))
 	    			  && (otherLED.getCond2Color() == (cond2Color)) // This one has to be == because it could be null, and .equals does not like null

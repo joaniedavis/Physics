@@ -30,7 +30,7 @@ public class LEDHandler {
     }
 
   }
-  
+
   public ArrayList<LED> getLEDs() {
 	  return leds;
   }
