@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 
 public class DenkoviRelayWriter {
-	public static void main(String[] args) {
+	public  void execute() {
 		// You have to give the entire path to the .jar file
 		// TODO: See if it's possible to import the .jar and use a local version
 

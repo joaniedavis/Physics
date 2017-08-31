@@ -5,13 +5,13 @@ import java.io.InputStreamReader;
 
 public class WaveShareRelayWriter {
 
-	public static void setRelay(int relayNum, int on/off) {
+	public void setRelay(int relayNum, int on_off) {
 		Runtime rt = Runtime.getRuntime();
-		String command = "OFF"
-		if (on/off == 1) {
+		String command = "OFF";
+		if (on_off == 1) {
 			command = "ON";
 		}
-		String[] commands = {"sh","-c",String.format("sudo ./Relay2.sh CH%d %s", realyNum, command)};
+		String[] commands = {"sh","-c",String.format("sudo ./Relay2.sh CH%d %s", relayNum, command)};
 	System.out.println(commands);
 
 	Process proc;

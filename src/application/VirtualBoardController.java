@@ -23,8 +23,8 @@ import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
 
 //Python stuff that may be deleted later
-import org.python.core.PyInstance;
-import org.python.util.PythonInterpreter;
+//import org.python.core.PyInstance;
+//import org.python.util.PythonInterpreter;
 
 import com.pi4j.io.i2c.I2CFactory.UnsupportedBusNumberException;
 
@@ -67,7 +67,7 @@ public class VirtualBoardController implements Initializable {
 	 DenkoviRelayWriter dRWriter;
 	 WaveShareRelayWriter wsRWriter;
 
-	private PythonInterpreter interpreter;
+//	private PythonInterpreter interpreter;
 
 	/**
 	 * This method initializes the collections that will be used throughout the
@@ -83,9 +83,9 @@ public class VirtualBoardController implements Initializable {
 	public void initialize(URL location, ResourceBundle resources) {
 		// Make IO Elements
 
-		// Set up Python interpreter
-		PythonInterpreter.initialize(System.getProperties(), System.getProperties(), new String[0]);
-		this.interpreter = new PythonInterpreter();
+//		// Set up Python interpreter
+//		PythonInterpreter.initialize(System.getProperties(), System.getProperties(), new String[0]);
+//		this.interpreter = new PythonInterpreter();
 
 		 try {
 			gpioReader = new GpioReader();
@@ -331,13 +331,13 @@ public class VirtualBoardController implements Initializable {
 	}
 
 	// Helper Jython Functions---------
-	void execfile(final String fileName) {
-		this.interpreter.execfile(fileName);
-	}
-
-	PyInstance createClass(final String className, final String opts) {
-		return (PyInstance) this.interpreter.eval(className + "(" + opts + ")");
-	}
+//	void execfile(final String fileName) {
+//		this.interpreter.execfile(fileName);
+//	}
+//
+//	PyInstance createClass(final String className, final String opts) {
+//		return (PyInstance) this.interpreter.eval(className + "(" + opts + ")");
+//	}
 	// -------------------------------
 
 	// TODO: Possibly rename this to updatingConditions,
@@ -358,17 +358,19 @@ public class VirtualBoardController implements Initializable {
 	private void updateVirtualRelays() {
 		System.out.print("Updating Virtual Relays");
 
-		if (RVlock_open_J5_8) {
-			 LockRoughopen_VR503 = true;
-		} else {
-			LockRoughopen_VR503 = false;
-		}
-
-		if (RVlock_closed_J5_9) {
-			LockRoughclosed_VR504 = true;
-		} else {
-			LockRoughclosed_VR504 = false;
-		}
+		//TODO: We do this when we read the GPIO pins so is this necessary?
+		
+//		if (RVlock_open_J5_8) {
+//			 virtualRelays.put("LockRoughopen_VR503") = true;
+//		} else {
+//			LockRoughopen_VR503 = false;
+//		}
+//
+//		if (RVlock_closed_J5_9) {
+//			virtualRelays.get("LockRoughclosed_VR504") = true;
+//		} else {
+//			virtualRelays.get("LockRoughclosed_VR504") = false;
+//		}
 
 
 	}
@@ -380,7 +382,7 @@ public class VirtualBoardController implements Initializable {
 	private void updateRealRelays() {
 		System.out.println("Updating Real Relays");
 
-		if (((virtualRelays.get("E")
+		if (((virtualRelays.get("E"))
 		& virtualRelays.get("LVOpen_VR501")
 		& virtualRelays.get("BLVClosed_VR402")
 		& virtualRelays.get("PVClosed_VR404")
