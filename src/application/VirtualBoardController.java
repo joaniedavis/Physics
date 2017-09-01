@@ -159,8 +159,9 @@ public class VirtualBoardController implements Initializable {
 		virtualRelays.put("ValveEnable_VR1", true);
 		virtualRelays.put("TC3ltSP2_VR102", true);
 		virtualRelays.put("LVclosed_VR502", true);
-		virtualRelays.put("LOGIC_Close_PV_VR403", true);
-		virtualRelays.put("LOGIC_VentValveopen_VR304", true);
+		virtualRelays.put("Logic_Close_PV_VR403", true);
+		virtualRelays.put("Logic_VentValveopen_VR304", true);
+		virtualRelays.put("Logic_VentValveOpen_VR303", true);
 
 
 				virtualRelays.put("ValveEnable_VR1", true);
@@ -170,14 +171,14 @@ public class VirtualBoardController implements Initializable {
 				virtualRelays.put("TC1ltSP_VR201", true);
 				virtualRelays.put("TurboatSpeed_VR202", true);
 				virtualRelays.put("TC2ltSP_VR203", true);
-				virtualRelays.put("LOGIC_LockRough_VR204", true);
-				virtualRelays.put("TC3ltSP1_VR301", true);
-				virtualRelays.put("LOGIC_RV1_VR302", true);
-				virtualRelays.put("LOGIC_VentValveopen_VR303", true);
-				virtualRelays.put("LOGIC_VentValveopen_VR304", true);
+				virtualRelays.put("Logic_LockRough_VR204", true);
+				virtualRelays.put("TC3ltSP1_VR301", true);Logic_ClosePV_VR403
+				virtualRelays.put("Logic_RV1_VR302", true);
+				virtualRelays.put("Logic_VentValveopen_VR303", true);
+				virtualRelays.put("Logic_VentValveopen_VR304", true);
 				virtualRelays.put("IC_CloseBLV_VR401", true);
 				virtualRelays.put("BLVclosed_VR402", true);
-				virtualRelays.put("LOGIC_Close_PV_VR403", true);
+				virtualRelays.put("Logic_ClosePV_VR403", true);
 				virtualRelays.put("PV_closed_VR404", true);
 				virtualRelays.put("LVopen_VR501", true);
 				virtualRelays.put("LVclosed_VR502", true);
@@ -318,14 +319,21 @@ public class VirtualBoardController implements Initializable {
 		if (RVlock_open_J5_8 == 1) {
 			realRelays.put("RVlock_open_J5_8", true);
 		} else {
-			realRelays.put("RVlock_open_J5_8", true);
+			realRelays.put("RVlock_open_J5_8", false);
 		}
 
 		int RVlock_closed_J5_9 = pinStatus[19];
 		if (RVlock_closed_J5_9 == 1) {
 			realRelays.put("RVlock_closed_J5_9", true);
 		} else {
-			realRelays.put("RVlock_closed_J5_9", true);
+			realRelays.put("RVlock_closed_J5_9", false);
+		}
+		
+		int VV_closed_J6_10 = pinStatus[0];
+		if (VV_closed_J6_10 == 1) {
+			realRelays.put("VV_closed_J6_10", true);
+		} else {
+			realRelays.put("VV_closed_J6_10", false);
 		}
 
 	}
@@ -358,19 +366,38 @@ public class VirtualBoardController implements Initializable {
 	private void updateVirtualRelays() {
 		System.out.print("Updating Virtual Relays");
 
-		//TODO: We do this when we read the GPIO pins so is this necessary?
+		if (((virtualRelays.get("Logic_VentValveOpen_VR303") 
+				& virtualRelays.get("Logic_ClosePV_VR403") 
+				& (vsHandler.getSwitch("VentLockChamber_m_S12").getState() == SwitchState.TRUE)) 
+				| (vsHandler.getSwitch("VentLockChamber_m_S12").getState() == SwitchState.FALSE)) 
+				& virtualRelays.get("TC3ltsp2_VR102") 
+				& virtualRelays.get("LockRoughclosed_VR504") 
+				& virtualRelays.get("LockRoughclosed_VR504") 
+				& virtualRelays.get("ValveEnable_VR1")) {
+			virtualRelays.put("E", true);
+		} else {
+			virtualRelays.put("E", false);
+		}
+
+		//TODO: VV_closed_J6_10 is a gpio pin?  Put it in RRs for now
 		
-//		if (RVlock_open_J5_8) {
-//			 virtualRelays.put("LockRoughopen_VR503") = true;
-//		} else {
-//			LockRoughopen_VR503 = false;
-//		}
-//
-//		if (RVlock_closed_J5_9) {
-//			virtualRelays.get("LockRoughclosed_VR504") = true;
-//		} else {
-//			virtualRelays.get("LockRoughclosed_VR504") = false;
-//		}
+		if (((virtualRelays.get("E") 
+				& virtualRelays.get("LVOpen_VR501") 
+				& virtualRelays.get("BLVClosed_VR402") 
+				& virtualRelays.get("PVClosed_VR404") 
+				& realRelays.get("VV_closed_J6_10")) | (virtualRelays.get("ValveEnable_VR1") 
+						& (vsHandler.getSwitch("VentValve_AutoClose_S11").getState() == SwitchState.TRUE) 
+						& virtualRelays.get("LockRoughclosed_VR504") 
+						& virtualRelays.get("TC3ltSP2_VR102") 
+						& virtualRelays.get("Lvclosed_VR502") 
+						& realRelays.get("VV_closed_J6_10") 
+						&( (vsHandler.getSwitch("VentLock_m_S13").getState() == SwitchState.TRUE) | (vsHandler.getSwitch("VentLock_m_S13").getState() == SwitchState.FALSE)
+								& virtualRelays.get("Logic_ClosePV_VR403") 
+								& virtualRelays.get("Logic_VentValveOpen_VR304"))))) {
+			virtualRelays.put("Logic_VentValveopen_VR303",  true);
+		} else {
+			virtualRelays.put("Logic_VentValveopen_VR303",  false);
+		}
 
 
 	}
@@ -394,12 +421,14 @@ public class VirtualBoardController implements Initializable {
 			& ((vsHandler.getSwitch("VentLock_m_S11").getState() == SwitchState.TRUE)
 			// TODO: I have no idea if this one is correct.  The false state is "Standby" but the outline references "Vent" and "On" but this switch has no on??
 			| ((vsHandler.getSwitch("VentLock_m_S11").getState() == SwitchState.FALSE)
-			& virtualRelays.get("LOGIC_ClosePV_VR403")
-			& virtualRelays.get("LOGIC_VentValveOpen_VR304")))) {
+			& virtualRelays.get("Logic_ClosePV_VR403")
+			& virtualRelays.get("Logic_VentValveOpen_VR304")))) {
 			//  call code to close RR6 (VVPower_RR6);
+			System.out.println("Relay 6 on");
 			wsRWriter.setRelay(6, 1);
 		} else {
 			// turn off;
+			System.out.println("Relay 6 off");
 			wsRWriter.setRelay(6, 0);
 		}
 	}
