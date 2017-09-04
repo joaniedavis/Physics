@@ -172,7 +172,7 @@ public class VirtualBoardController implements Initializable {
 				virtualRelays.put("TurboatSpeed_VR202", true);
 				virtualRelays.put("TC2ltSP_VR203", true);
 				virtualRelays.put("Logic_LockRough_VR204", true);
-				virtualRelays.put("TC3ltSP1_VR301", true);Logic_ClosePV_VR403
+				virtualRelays.put("TC3ltSP1_VR301", true);
 				virtualRelays.put("Logic_RV1_VR302", true);
 				virtualRelays.put("Logic_VentValveopen_VR303", true);
 				virtualRelays.put("Logic_VentValveopen_VR304", true);
