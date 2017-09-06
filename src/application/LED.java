@@ -103,7 +103,7 @@ public class LED {
 		gui_Rect.setFill(currentColor);
 	}
 
-	 @Override
+//	 @Override
 	  public boolean equals(Object other) {
 	      if (other == null) return false;
 	      if (other.getClass() == LED.class) {
