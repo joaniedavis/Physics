@@ -33,3 +33,6 @@ JavaFX is the library used to create the GUI for this application. It is meant t
 5. Select both items of JavaFX components to install and click `Next`
 6. Eclipse should restart and be able to run JavaFX
 
+#### Pi4J
+Pi4J is a library needed to interface with the GPIO pins on the Pi. The library can be downloaded [here](http://pi4j.com/download.html) from the Pi4J project. The two packages required from the library are `pi4j-core` and `pi4j-extension`.
+
