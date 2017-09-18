@@ -36,3 +36,5 @@ JavaFX is the library used to create the GUI for this application. It is meant t
 #### Pi4J
 Pi4J is a library needed to interface with the GPIO pins on the Pi. The library can be downloaded [here](http://pi4j.com/download.html) from the Pi4J project. The two packages required from the library are `pi4j-core` and `pi4j-extension`.
 
+### Additional Notes
+Notes taken during the development of the project that might be usefule can be found (here)[https://drive.google.com/drive/folders/0B4g6zwWStRKCMkFzdURDUV9rLXM?usp=sharing]
